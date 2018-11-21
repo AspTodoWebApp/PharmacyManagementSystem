@@ -50,7 +50,8 @@ namespace PharmacyManagementSystem.Models
     {
         [Required]
         [Display(Name = "Email")]
-      /*  [EmailAddress]*/
+        [RegularExpression(@"^([a-zA-Z0-9]+)@(pms|PMS+).(com|org|in+)$", ErrorMessage = "Enter Correct E-mail e.g name@pms/PMS.com.org.in")]
+        /*  [EmailAddress]*/
         public string Email { get; set; }
 
         [Required]
@@ -70,12 +71,14 @@ namespace PharmacyManagementSystem.Models
         public string Username { get; set; }
 
         [Required]
-        
+        [RegularExpression(@"^([a-zA-Z0-9]+)@(pms|PMS+).(com|org|in+)$", ErrorMessage = "Enter Correct E-mail e.g name@pms/PMS.com.org.in")]
         [Display(Name = "Email")]
+        [Remote("CheckEmailExists", "Account", ErrorMessage = "PMS Account Already Taken")]
         public string Email { get; set; }
 
         [Required]
         [EmailAddress]
+        [Remote("CheckGmailExists", "Account", ErrorMessage = "Email Already Taken")]
         [Display(Name = "Gmail Account")]
         public string GmailAccount { get; set; }
 
@@ -119,6 +122,7 @@ namespace PharmacyManagementSystem.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        [Remote("CheckExists", "Account", ErrorMessage = "Email Does not exist in Database")]
         public string Email { get; set; }
     }
 }

@@ -18,7 +18,55 @@ namespace PharmacyManagementSystem.Controllers
         {
             return View(_db.Stocks.ToList());
         }
-     
+
+        public JsonResult CheckStockNameExists(string Name)
+        {
+            bool UserExists = false;
+
+            try
+            {
+                var Emsilexits = _db.Stocks.Where(md => md.Name == Name).ToList();
+                if (Emsilexits.Count() > 0)
+                {
+                    UserExists = true;
+                }
+                else
+                {
+                    UserExists = false;
+                }
+
+                return Json(!UserExists, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        //public JsonResult CheckStockCategoryExists(string Category)
+        //{
+        //    bool UserExists = false;
+
+        //    try
+        //    {
+        //        var Emsilexits = _db.Stocks.Where(md => md.Category == Category).ToList();
+        //        if (Emsilexits.Count() > 0)
+        //        {
+        //            UserExists = true;
+        //        }
+        //        else
+        //        {
+        //            UserExists = false;
+        //        }
+
+        //        return Json(!UserExists, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Json(false, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
         // GET: Stock/Details/5
         public ActionResult Details(string id)
@@ -76,47 +124,7 @@ namespace PharmacyManagementSystem.Controllers
 
 
 
-        public JsonResult CheckUserNameExists(string Name)
-
-        {
- bool UserExists = false;
-
-            try { 
-
-            
-                var nameexits = _db.Stocks.Where(x => x.Name == Name).ToList();
-
-                    if (nameexits.Count() > 0)
-
-                    {
-
-                        UserExists = true;
-
-                    }
-
-                    else
-
-                    {
-
-                        UserExists = false;
-
-                    }
-
-                
-
-                return Json(!UserExists, JsonRequestBehavior.AllowGet);
-
-            }
-
-            catch (Exception)
-
-            {
-
-                return Json(false, JsonRequestBehavior.AllowGet);
-
-            }
-
-        }
+ 
 
 
 

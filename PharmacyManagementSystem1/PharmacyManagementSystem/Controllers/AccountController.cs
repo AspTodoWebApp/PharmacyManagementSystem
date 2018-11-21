@@ -30,6 +30,83 @@ namespace PharmacyManagementSystem.Controllers
             _db = new PharmacyDBEntities2();
         }
 
+
+        [AllowAnonymous]
+        public JsonResult CheckEmailExists(string Email)
+        {
+            bool UserExists = false;
+
+            try
+            {
+                var Emsilexits = _db.AspNetUsers.Where(md => md.Email == Email).ToList();
+                if (Emsilexits.Count() > 0)
+                {
+                    UserExists = true;
+                }
+                else
+                {
+                    UserExists = false;
+                }
+
+                return Json(!UserExists, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [AllowAnonymous]
+        public JsonResult CheckGmailExists(string GmailAccount)
+        {
+            bool UserExists = false;
+
+            try
+            {
+                var Emsilexits = _db.AspNetUsers.Where(md => md.GmailAccount == GmailAccount).ToList();
+                if (Emsilexits.Count() > 0)
+                {
+                    UserExists = true;
+                }
+                else
+                {
+                    UserExists = false;
+                }
+
+                return Json(!UserExists, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [AllowAnonymous]
+        public JsonResult CheckExists(string GmailAccount)
+        {
+            bool UserExists = false;
+
+            try
+            {
+                var Emsilexits = _db.AspNetUsers.Where(md => md.GmailAccount == GmailAccount).ToList();
+                if (Emsilexits.Count() > 0)
+                {
+                    UserExists = false;
+                }
+                else
+                {
+                    UserExists = true;
+                }
+
+                return Json(!UserExists, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
