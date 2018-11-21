@@ -10,7 +10,7 @@ namespace PharmacyManagementSystem.Controllers
     {
         PharmacyDBEntities4 _db;
         public DashboardController()
-
+            //Dashboard
         {
             _db = new PharmacyDBEntities4();
         }

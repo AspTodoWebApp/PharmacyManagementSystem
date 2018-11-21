@@ -73,7 +73,7 @@ namespace PharmacyManagementSystem.Controllers
         {
             return View();
         }
-
+        //Add medicine
         // GET: Stock/Create
         public ActionResult Create()
         {
@@ -147,7 +147,7 @@ namespace PharmacyManagementSystem.Controllers
                 med.ExpiryDate = collection.ExpiryDate;
                 med.Quantity = collection.Quantity;
                 med.Category = collection.Category;
-                med.AddedDate = DateTime.Now;
+                //med.AddedDate = DateTime.Now;
                 _db.Stocks.Add(med);
                 _db.SaveChanges();
 
