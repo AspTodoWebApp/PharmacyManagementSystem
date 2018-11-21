@@ -14,7 +14,7 @@ namespace PharmacyManagementSystem.Models
     
     public partial class Stock
     {
-       //validation
+       
         public string SerialNumber { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }

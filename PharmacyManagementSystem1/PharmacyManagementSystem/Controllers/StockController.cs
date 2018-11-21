@@ -73,7 +73,7 @@ namespace PharmacyManagementSystem.Controllers
         {
             return View();
         }
-        //Add medicine
+
         // GET: Stock/Create
         public ActionResult Create()
         {
