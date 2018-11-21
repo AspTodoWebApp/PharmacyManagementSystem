@@ -23,11 +23,11 @@ namespace PharmacyManagementSystem.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         AuthorizeAttribute authorize;  //set authorze person(private write or not does n't matter as default is private
-        PharmacyDBEntities2 _db;
+        PharmacyDBEntities4 _db;
         public AccountController()
         {
            authorize = new AuthorizeAttribute();
-            _db = new PharmacyDBEntities2();
+            _db = new PharmacyDBEntities4();
         }
 
 

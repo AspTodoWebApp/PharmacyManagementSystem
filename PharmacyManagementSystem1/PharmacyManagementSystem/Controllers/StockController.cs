@@ -8,10 +8,10 @@ namespace PharmacyManagementSystem.Controllers
 {
     public class StockController : ApplicationBaseController //Controller
     {
-        PharmacyDBEntities2 _db;
+        PharmacyDBEntities4 _db;
         public StockController()
         {
-            _db = new PharmacyDBEntities2();
+            _db = new PharmacyDBEntities4();
         }
         // GET: Stock
         public ActionResult Index()
@@ -105,7 +105,7 @@ namespace PharmacyManagementSystem.Controllers
                     med.ExpiryDate = collection.ExpiryDate;
                     med.Quantity = collection.Quantity;
                     med.Category = collection.Category;
-                    med.AddedDate = DateTime.Now;
+                    //med.AddedDate = DateTime.Now;
                     _db.Stocks.Add(med);
                     _db.SaveChanges();
                     // TODO: Add insert logic here

@@ -8,10 +8,10 @@ namespace PharmacyManagementSystem.Controllers
 {
     public class FinanceController : ApplicationBaseController
     {
-        PharmacyDBEntities2 _db;
+        PharmacyDBEntities4 _db;
         public FinanceController()
         {
-            _db = new PharmacyDBEntities2();
+            _db = new PharmacyDBEntities4();
         }
         // GET: Finance
         public ActionResult Index()

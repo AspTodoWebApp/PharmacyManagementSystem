@@ -8,11 +8,11 @@ namespace PharmacyManagementSystem.Controllers
 {
     public class DashboardController : ApplicationBaseController // Controller
     {
-        PharmacyDBEntities2 _db;
+        PharmacyDBEntities4 _db;
         public DashboardController()
 
         {
-            _db = new PharmacyDBEntities2();
+            _db = new PharmacyDBEntities4();
         }
         // GET: Dashboard
         public ActionResult Index()

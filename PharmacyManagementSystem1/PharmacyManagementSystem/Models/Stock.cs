@@ -11,29 +11,15 @@ namespace PharmacyManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
+    
     public partial class Stock
     {
         public string SerialNumber { get; set; }
-        [Requierd]
-        //[Remote("CheckStockNameExists", "Stock", ErrorMessage = "Stock Name Already Taken")]
         public string Name { get; set; }
-        [Required]
-        [Remote("CheckStockCategoryExists", "Stock", ErrorMessage = "Stock Category Already Taken")]
         public string Category { get; set; }
-        [Requierd]
         public int PurchasePrice { get; set; }
-        [Requierd]
         public int SellingPrice { get; set; }
-        [Requierd]
-
         public int Quantity { get; set; }
-        [Required]
-        [DataType(DataType.Date)]
-
         public System.DateTime ExpiryDate { get; set; }
-        public System.DateTime AddedDate { get; set; }
     }
 }

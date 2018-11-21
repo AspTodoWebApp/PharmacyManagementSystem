@@ -20,12 +20,12 @@ namespace PharmacyManagementSystem.Controllers
 {
     public class StaffController : ApplicationBaseController
     {
-        PharmacyDBEntities2 _db;
+        PharmacyDBEntities4 _db;
        
    
       public  StaffController()
         {
-            _db = new PharmacyDBEntities2();
+            _db = new PharmacyDBEntities4();
         }
         // GET: Staff
     
