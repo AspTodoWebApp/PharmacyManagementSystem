@@ -1,0 +1,358 @@
+﻿@model IEnumerable<PharmacyManagementSystem.Models.Stock>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
+          rel="stylesheet" type="text/css" />*@
+<div class="container-scroller">
+
+    <div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
+        <div class="panel-heading">
+
+            <i class="fa fa-medkit"></i>
+            Stock Alert
+        </div>
+    </div>
+
+ <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <table id="order-listing"
+                           class="table table-bordered table-hover" style="text-align:center">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th style="text-align:center">
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th style="text-align:center">
+                                    @Html.DisplayNameFor(model => model.Category)
+                                </th>
+                                <th style="text-align:center">
+                                    @Html.DisplayNameFor(model => model.PurchasePrice)
+                                </th>
+                                <th style="text-align:center">
+                                    @Html.DisplayNameFor(model => model.SellingPrice)
+                                </th>
+                                <th style="text-align:center">
+                                    @Html.DisplayNameFor(model => model.Quantity)
+                                </th>
+                                <th style="text-align:center">
+                                    @Html.DisplayNameFor(model => model.ExpiryDate)
+                                </th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="Search">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Category)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PurchasePrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SellingPrice)
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                @Html.DisplayFor(modelItem => item.Quantity)
+
+                                                <button type="button" class="btn btn-success  loadStock" data-toggle="modal" data-target="#loadQuantityModal" data-id="@item.SerialNumber">Load</button>
+                                            </div>
+                                            @if (@item.Quantity <= 50)
+                { <div class="col-lg-12" style="margin-top:5px">
+                                                    <label class="badge badge-danger">Stock out</label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExpiryDate)
+                                    </td>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+
+                                                    <button type="button" class="btn btn-success  editStock" data-toggle="modal" data-target="#editModalLong" data-id="@item.SerialNumber">
+                                                        <span class="glyphicon glyphicon-edit"></span> Edit
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-12" style="margin-top:5px">
+                                                    <div type="button" class="btn btn-danger" style="color:white">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+
+                                                        @Html.ActionLink("Delete", "Delete", new { id = item.SerialNumber },
+                    new { @class = "link-button", onclick = "return confirm('Are you sure you wish to delete this Medicine?');", })
+
+
+                                                    </div>
+                                             
+
+                                                    @*   <button type="button" class="btn btn-danger btn-xs" onclick="location.href='@Htm("Delete", "Delete", new { id = item.SerialNumber },
+                                                        new { onclick = "return confirm('Are you sure you wish to delete this Medicine?');" })'">Rr</button>*@
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- content-wrapper ends -->
+<!-- partial:../../partials/_footer.html -->
+<!-- partial -->
+<!-- add medicine button Modal -->
+<div class="modal fade" id="addModalLong" tabindex="-1" role="dialog" aria-labelledby="addModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:darkcyan">
+                <div class="container" style="font-size:20px;color:white">
+                    <span class="glyphicon glyphicon-edit"></span>  Add Medicine
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:black">&times;</span>
+                    </button>
+                </div>
+
+            </div>
+            <div class="modal-body" id="modalBody">
+                <div class="row">
+                </div>
+            </div>@*
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<!-- Load button Modal -->
+<div class="modal fade" id="loadQuantityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:darkcyan">
+                <div class="container" style="font-size:20px;color:white">
+                    <span class="glyphicon glyphicon-edit"></span>  Update Quantity
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:black">&times;</span>
+                    </button>
+                </div>
+
+            </div>
+            <div class="modal-body" id="loadBody">
+
+                <div class="row">
+                </div>
+            </div>
+            @*
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit button Modal -->
+<div class="modal fade" id="editModalLong" tabindex="-1" role="dialog" aria-labelledby="editModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:darkcyan">
+                <div class="container" style="font-size:20px;color:white">
+                    <span class="glyphicon glyphicon-edit"></span>  Edit Medicine
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:black">&times;</span>
+                    </button>
+                </div>
+
+            </div>
+            <div class="modal-body" id="edit_body">
+
+                <div class="row">
+                </div>
+            </div>
+            @*
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@section scripts{
+    <script>
+            var AddStaffPostBackURL = '/Stock/addMedicine';
+            $(function () {
+                $(".addStock").click(function () {
+                    var $buttonClicked = $(this);
+                    //  var id = $buttonClicked.attr('data-id');
+                    $.ajax({
+                        type: "GET",
+                        url: AddStaffPostBackURL,
+                        contentType: "application/json; charset=utf-8",
+                        //      data: { "Id": id },
+                        datatype: "json",
+                        success: function (data) {
+                            $('#modalBody').html(data);
+                            $('#addModalLong').modal('show');
+
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+
+
+
+            var editStaffPostBackURL = '/Stock/Edit';
+            $(function () {
+                $(".editStock").click(function () {
+                    var $buttonClicked = $(this);
+                    var id = $buttonClicked.attr('data-id');
+                    $.ajax({
+                        type: "GET",
+                        url: editStaffPostBackURL,
+                        contentType: "application/json; charset=utf-8",
+                        data: { "Id": id },
+                        datatype: "json",
+                        success: function (data) {
+                            $('#edit_body').html(data);
+                            $('#editModalLong').modal('show');
+
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+
+
+
+
+            var loadStaffPostBackURL = '/Stock/LoadQuantity';
+            $(function () {
+                $(".loadStock").click(function () {
+                    var $buttonClicked = $(this);
+                    var id = $buttonClicked.attr('data-id');
+                    $.ajax({
+                        type: "GET",
+                        url: loadStaffPostBackURL,
+                        contentType: "application/json; charset=utf-8",
+                        data: { "Id": id },
+                        datatype: "json",
+                        success: function (data) {
+                            $('#loadBody').html(data);
+                            $('#loadQuantityModal').modal('show');
+
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+
+
+
+            $(function () {
+                $(".deleteStock").click(function () {
+                    var x = confirm("Are u want to delete???");
+
+                    var $buttonClicked = $(this);
+                    var id = $buttonClicked.attr('data-id');
+                    if(x){
+                    $.ajax({
+                        type: "GET",
+                        url: '/Stock/Delete',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "Id": id },
+                        datatype: "json",
+                        success: function (response) {
+                            alert(response.status);
+                        },
+                        error: function () {
+                            alert("error while deleting stock");
+                        }
+                    });
+                }
+                });
+            });
+
+
+
+            ////////////Search in table////////////////////
+            $(document).ready(function () {
+                function Contains(text_one, text_two) {
+                    if (text_one.indexOf(text_two) != -1) {
+                        return true;
+                    }
+                }
+                $("#SearchTxt").keyup(function () {
+                    var searchText = $("#SearchTxt").val().toLowerCase();
+                    //  if (searchText != 'edit' || searchText != 'delete' || searchText!='load'){
+                    $(".Search").each(function () {
+                        if (!Contains($(this).text().toLowerCase(), searchText)) {
+                            $(this).hide();
+                        }
+                        else {
+                            $(this).show();
+                        }
+                    });
+                    //   }
+                });
+
+            });
+    </script>
+
+    <!-- partial -->
+
+
+
+}
+
+

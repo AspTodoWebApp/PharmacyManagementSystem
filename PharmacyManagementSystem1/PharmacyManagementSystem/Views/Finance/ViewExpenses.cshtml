@@ -1,0 +1,125 @@
+﻿@model IEnumerable<PharmacyManagementSystem.Models.Expens>
+
+@{
+    ViewBag.Title = "ViewExpenses";
+}
+@*
+    <h2>ViewExpenses</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+    </table>
+*@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-money"></i>
+        Expenses
+    </div>
+</div>
+
+
+<a href="/Finance/AddExpenses" class="btn btn-success" style="margin-bottom:20px;color:white;box-shadow:2px 2px 5px grey">
+    <span class="glyphicon glyphicon-plus-sign"></span>Add New Expense
+</a>
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered table-hover" id="order-listing" style="text-align:center">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Category)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount)
+                            </th>
+
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+
+                                                <a href="/Finance/EditExpense" class="btn btn-success btn-xs">
+                                                    <div style="margin-top:6px">
+                                                        <span class="glyphicon glyphicon-edit"></span> Edit
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-12" style="margin-top:5px">
+                                                <button type="button" class="btn btn-danger btn-xs" onclick="confirmDelete();"><span class="glyphicon glyphicon-trash"></span>Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+
+
+                        </tbody>
+                    }
+
+                </table>
+            </div></div></div></div>
+
+            <script>
+                function confirmDelete() {
+                    confirm("Are u sure u want to selected delete medicine?")
+                }
+            </script>

@@ -1,0 +1,824 @@
+﻿@model PharmacyManagementSystem.Models.DashboardView
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*outside card*@
+<style>
+    .cardLink, .cardLink:hover, .cardLink:active, .cardLink:visited, .cardLink:focus {
+        text-decoration: none;
+        text-decoration-color: navy;
+    }
+</style>
+<div class="row">
+    <a class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card cardLink" role="button" href="/Finance/SaleToday">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="highlight-icon bg-light mr-3">
+                        @* <i class="mdi mdi-cube text-success icon-lg"></i>*@
+                        <i class="fa fa-money"></i>
+
+                    </div>
+                    <div class="wrapper">
+                        <p class="card-text mb-0">Sales Today </p>
+                        <div class="fluid-container">
+                            <h3 class="card-title mb-0">PKR 65,650</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card cardLink" role="button" href="/Finance/ViewExpenses">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="highlight-icon bg-light mr-3">
+                        <i class="mdi mdi-briefcase-check text-primary icon-lg"></i>
+                    </div>
+                    <div class="wrapper">
+                        <p class="card-text mb-0">Expenses</p>
+                        <div class="fluid-container">
+                            <h3 class="card-title mb-0">PKR 45,650</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card cardLink" role="button" href="/Stock/Index">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="highlight-icon bg-light mr-3">
+                        <i class="mdi mdi-account-multiple text-danger icon-lg"></i>
+                    </div>
+                    <div class="wrapper">
+                        <p class="card-text mb-0">Returns</p>
+                        <div class="fluid-container">
+                            <h3 class="card-title mb-0">$12,357</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card cardLink" role="button" href="/Staff/Index">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="highlight-icon bg-light mr-3 ql-bg-blue">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="wrapper">
+                        <p class="card-text mb-0">Sales</p>
+                        <div class="fluid-container">
+                            <h3 class="card-title mb-0">$45,650</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+@*outside card*@
+
+
+
+
+
+<div class="row" style="margin-top:20px;margin-left:10px">
+    <div class="col-lg-3 col-sm-6">
+        <a href="/Finance/SaleToday" role="button">
+            <div class="row">
+                <div class="col-sm-5" style="background-color:green;text-align:center;padding:25px">
+
+                    <span class="glyphicon glyphicon-plus" style="color:white;font-size:45px"></span>
+                </div>
+                <div class="col-sm-6" style="text-align:center;background-color:white;font-size:15px;padding:31px 0px 31px 0px">
+                    <div class="row">
+                        <div class="col-lg-12">Sale Today</div><div class="col-lg-12">PKR 6768</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <a href="/Finance/ExpenseToday" role="button">
+            <div class="row">
+                <div class="col-sm-5" style="background-color:blue;text-align:center;padding:25px">
+
+                    <span class="glyphicon glyphicon-minus" style="color:white;font-size:45px"></span>
+                </div>
+                <div class="col-sm-6" style="text-align:center;background-color:white;font-size:15px;padding:31px 0px 31px 0px">
+                    <div class="row">
+                        <div class="col-lg-12">Expense Today</div><div class="col-lg-12">PKR 85677</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+
+    <div class="col-lg-3 col-sm-6 ">
+        <a href="/Stock/Index" role="button">
+            <div class="row">
+                <div class="col-sm-5" style="background-color:blue;text-align:center;padding:30px">
+                    <i class="fa fa-medkit" style="color:white;font-size:45px"></i>
+
+                </div>
+                <div class="col-sm-6" style="text-align:center;background-color:white;font-size:15px;padding:31px 0px 31px 0px">
+                    <div class="row">
+                        <div class="col-lg-12">Medicine</div><div class="col-lg-12">PKR 85677</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-3 col-sm-6 ">
+        <a href="/Stock/Index" role="button">
+            <div class="row">
+                <div class="col-sm-5" style="background-color:blue;text-align:center;padding:30px">
+                    <i class="fa fa-user" style="color:white;font-size:45px"></i>
+
+                </div>
+                <div class="col-sm-6" style="text-align:center;background-color:white;font-size:15px;padding:31px 0px 31px 0px">
+                    <div class="row">
+                        <div class="col-lg-12">Staff</div><div class="col-lg-12">6</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+
+
+
+
+@*<div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <a href="finance/todaySales">
+                <section class="panel panel-moree">
+                    <div class="symbol terques">
+                        <i class="fa fa-plus"></i>
+                    </div>
+                    <div class="value">
+                        <p> Sales Today </p>
+                        <h1 class="">
+                            INR 0.00
+                        </h1>
+                    </div>
+                </section>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <a href="finance/todayExpense">
+                <section class="panel panel-moree">
+                    <div class="symbol blue">
+                        <i class="fa fa-minus"></i>
+                    </div>
+                    <div class="value">
+                        <p> Expense Today </p>
+                        <h1 class="">
+                            INR 0.00
+                        </h1>
+
+                    </div>
+                </section>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <a href="medicine">
+                <section class="panel panel-moree">
+                    <div class="symbol blue">
+                        <i class="fa fa-medkit"></i>
+                    </div>
+                    <div class="value">
+                        <p> Medicine </p>
+                        <h1 class="">
+                            4
+                        </h1>
+
+                    </div>
+                </section>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <a href="accountant">
+                <section class="panel panel-moree">
+                    <div class="symbol blue">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="value">
+                        <p> Staff </p>
+                        <h1 class="">
+                            0
+                        </h1>
+                    </div>
+                </section>
+            </a>
+        </div>
+
+        <!--
+
+                <div class="col-lg-6 col-sm-12">
+                                                <a href="finance/todayNetCash">
+                                            <section class="panel panel-moree">
+                            <div class="symbol blue">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <div class="value">
+                                <p> Today Net Cash </p>
+                                <h1 class="">
+            INR 0.00                                        </h1>
+                            </div>
+                        </section>
+                                                </a>
+                                    </div>
+
+
+
+                <div class="col-lg-6 col-sm-12">
+
+                                            <section class="panel panel-moree">
+                            <div class="symbol blue">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <div class="value">
+                                <p> Current Total Inventory Value </p>
+                                <h1 class="">
+            INR 29,496.00                                        </h1>
+                            </div>
+                        </section>
+
+                                    </div>
+
+
+        -->
+
+
+
+
+        <div class="col-md-6">
+            <!--work progress start-->
+            <section class="panel">
+                <div class="panel-body progress-panel">
+                    <div class="task-progress">
+                        <h1>Statistics</h1>
+                        <p>This Month</p>
+                    </div>
+                </div>
+                <table class="table table-hover personal-task">
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                Number Of Sales
+                            </td>
+                            <td>
+                                <span class="badge bg-important">
+                                    75
+                                </span>
+                            </td>
+                            <td>
+                                <div id="work-progress1"><canvas width="47" height="20" style="display: inline-block; width: 47px; height: 20px; vertical-align: top;"></canvas></div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                Total Sales
+                            </td>
+                            <td>
+                                <span class="badge bg-important">
+                                    INR                                            73,822.00
+                                </span>
+                            </td>
+                            <td>
+                                <div id="work-progress1"><canvas width="47" height="20" style="display: inline-block; width: 47px; height: 20px; vertical-align: top;"></canvas></div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                Number Of Expenses
+                            </td>
+                            <td>
+                                <span class="badge bg-success">
+                                    2
+                                </span>
+                            </td>
+                            <td>
+                                <div id="work-progress2"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                Total Expense
+                            </td>
+                            <td>
+                                <span class="badge bg-success">
+                                    INR                                            52000
+                                </span>
+                            </td>
+                            <td>
+                                <div id="work-progress2"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>5</td>
+                            <td>
+                                Number Of Medicines
+                            </td>
+                            <td>
+                                <span class="badge bg-info">
+                                    4
+                                </span>
+                            </td>
+                            <td>
+                                <div id="work-progress3"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>6</td>
+                            <td>
+                                In Stock Inventory Quantity
+                            </td>
+                            <td>
+                                <span class="badge bg-info">
+                                    224
+                                </span>
+                            </td>
+                            <td>
+                                <div id="work-progress3"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>
+                                Medicine out Of Stock
+                            </td>
+                            <td>
+                                <span class="badge bg-warning">
+                                    0
+                                </span>
+                            </td>
+                            <td>
+                                <div id="work-progress4"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                            </td>
+                        </tr>
+                        <!--
+                        <tr>
+                            <td>8</td>
+                            <td>
+                        Discount                                    </td>
+                            <td>
+                                <span class="badge bg-primary">
+
+
+
+                        INR
+                        930
+                                </span>
+                            </td>
+                            <td>
+                                <div id="work-progress5"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                            </td>
+                        </tr>
+                        -->
+                    </tbody>
+                </table>
+            </section>
+            <!--work progress end-->
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="panel-heading"> Latest Sales</div>
+            <table class="table table-striped table-hover table-bordered" id="">
+                <thead>
+                    <tr>
+                        <th> Date </th>
+                        <th> Grand Total </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <style>
+                        .img_url {
+                            height: 20px;
+                            width: 20px;
+                            background-size: contain;
+                            max-height: 20px;
+                            border-radius: 100px;
+                        }
+
+                        .option_th {
+                            width: 18%;
+                        }
+                    </style>
+                    <tr class="">
+                        <td>20/11/18</td>
+                        <td>INR 200</td>
+                    </tr>
+                    <tr class="">
+                        <td>20/11/18</td>
+                        <td>INR 99</td>
+                    </tr>
+                    <tr class="">
+                        <td>20/11/18</td>
+                        <td>INR 330</td>
+                    </tr>
+                    <tr class="">
+                        <td>20/11/18</td>
+                        <td>INR 300</td>
+                    </tr>
+                    <tr class="">
+                        <td>19/11/18</td>
+                        <td>INR 50</td>
+                    </tr>
+                    <tr class="">
+                        <td>19/11/18</td>
+                        <td>INR 840</td>
+                    </tr>
+                    <tr class="">
+                        <td>18/11/18</td>
+                        <td>INR 315</td>
+                    </tr>
+                    <tr class="">
+                        <td>18/11/18</td>
+                        <td>INR 460</td>
+                    </tr>
+                    <tr class="">
+                        <td>17/11/18</td>
+                        <td>INR 15</td>
+                    </tr>
+                    <tr class="">
+                        <td>17/11/18</td>
+                        <td>INR 15</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="panel-heading"> Latest Expenses</div>
+            <table class="table table-striped table-hover table-bordered" id="">
+                <thead>
+                    <tr>
+                        <th> Category </th>
+                        <th> Date </th>
+                        <th> Amount </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <style>
+                        .img_url {
+                            height: 20px;
+                            width: 20px;
+                            background-size: contain;
+                            max-height: 20px;
+                            border-radius: 100px;
+                        }
+                    </style>
+                    <tr class="">
+                        <td>Salary</td>
+                        <td> 16/11/18</td>
+                        <td>INR 50000</td>
+                    </tr>
+                    <tr class="">
+                        <td>Salary</td>
+                        <td> 16/11/20</td>
+                        <td>INR 2000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel-heading"> Latest Medicine</div>
+            <table class="table table-striped table-hover table-bordered" id="">
+                <thead>
+                    <tr>
+                        <th> Name</th>
+                        <th> Category</th>
+                        <th> Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="">
+                        <td>svrc</td>
+                        <td> Carton</td>
+                        <td>INR 34</td>
+                    </tr>
+                    <tr class="">
+                        <td>Raves</td>
+                        <td> Syringe</td>
+                        <td>INR 25</td>
+                    </tr>
+                    <tr class="">
+                        <td>Brufin Syrup</td>
+                        <td> tblet</td>
+                        <td>INR 50</td>
+                    </tr>
+                    <tr class="">
+                        <td>jnj</td>
+                        <td> cream</td>
+                        <td>INR 280</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <aside class="col-md-6">
+            <section class="panel">
+                <div class="panel-body">
+                    <div id="calendar" class="has-toolbar fc"><table class="fc-header" style="width:100%"><tbody><tr><td class="fc-header-left"><span class="fc-button fc-button-prev fc-state-default fc-corner-left"><span class="fc-button-inner"><span class="fc-button-content">&nbsp;◄&nbsp;</span><span class="fc-button-effect"><span></span></span></span></span><span class="fc-button fc-button-next fc-state-default fc-corner-right"><span class="fc-button-inner"><span class="fc-button-content">&nbsp;►&nbsp;</span><span class="fc-button-effect"><span></span></span></span></span><span class="fc-header-space"></span><span class="fc-button fc-button-today fc-state-default fc-corner-left fc-corner-right fc-state-disabled"><span class="fc-button-inner"><span class="fc-button-content">today</span><span class="fc-button-effect"><span></span></span></span></span></td><td class="fc-header-center"><span class="fc-header-title"><h2>November 2018</h2></span></td><td class="fc-header-right"><span class="fc-button fc-button-month fc-state-default fc-corner-left fc-state-active"><span class="fc-button-inner"><span class="fc-button-content">month</span><span class="fc-button-effect"><span></span></span></span></span><span class="fc-button fc-button-basicWeek fc-state-default"><span class="fc-button-inner"><span class="fc-button-content">week</span><span class="fc-button-effect"><span></span></span></span></span><span class="fc-button fc-button-basicDay fc-state-default fc-corner-right"><span class="fc-button-inner"><span class="fc-button-content">day</span><span class="fc-button-effect"><span></span></span></span></span></td></tr></tbody></table><div class="fc-content" style="position: relative; min-height: 1px;"><div class="fc-view fc-view-month fc-grid" style="position: relative; -moz-user-select: none;" unselectable="on"><table class="fc-border-separate" style="width:100%" cellspacing="0"><thead><tr class="fc-first fc-last"><th class="fc-sun fc-widget-header fc-first" style="width: 70px;">Sun</th><th class="fc-mon fc-widget-header" style="width: 70px;">Mon</th><th class="fc-tue fc-widget-header" style="width: 70px;">Tue</th><th class="fc-wed fc-widget-header" style="width: 70px;">Wed</th><th class="fc-thu fc-widget-header" style="width: 70px;">Thu</th><th class="fc-fri fc-widget-header" style="width: 70px;">Fri</th><th class="fc-sat fc-widget-header fc-last">Sat</th></tr></thead><tbody><tr class="fc-week0 fc-first"><td class="fc-sun fc-widget-content fc-day0 fc-first fc-other-month"><div style="min-height: 55px;"><div class="fc-day-number">28</div><div class="fc-day-content"><div style="position: relative; height: 0px;">&nbsp;</div></div></div></td><td class="fc-mon fc-widget-content fc-day1 fc-other-month"><div><div class="fc-day-number">29</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-tue fc-widget-content fc-day2 fc-other-month"><div><div class="fc-day-number">30</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-wed fc-widget-content fc-day3 fc-other-month"><div><div class="fc-day-number">31</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-thu fc-widget-content fc-day4"><div><div class="fc-day-number">1</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-fri fc-widget-content fc-day5"><div><div class="fc-day-number">2</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-sat fc-widget-content fc-day6 fc-last"><div><div class="fc-day-number">3</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td></tr><tr class="fc-week1"><td class="fc-sun fc-widget-content fc-day7 fc-first"><div style="min-height: 54px;"><div class="fc-day-number">4</div><div class="fc-day-content"><div style="position: relative; height: 0px;">&nbsp;</div></div></div></td><td class="fc-mon fc-widget-content fc-day8"><div><div class="fc-day-number">5</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-tue fc-widget-content fc-day9"><div><div class="fc-day-number">6</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-wed fc-widget-content fc-day10"><div><div class="fc-day-number">7</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-thu fc-widget-content fc-day11"><div><div class="fc-day-number">8</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-fri fc-widget-content fc-day12"><div><div class="fc-day-number">9</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-sat fc-widget-content fc-day13 fc-last"><div><div class="fc-day-number">10</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td></tr><tr class="fc-week2"><td class="fc-sun fc-widget-content fc-day14 fc-first"><div style="min-height: 54px;"><div class="fc-day-number">11</div><div class="fc-day-content"><div style="position: relative; height: 0px;">&nbsp;</div></div></div></td><td class="fc-mon fc-widget-content fc-day15"><div><div class="fc-day-number">12</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-tue fc-widget-content fc-day16"><div><div class="fc-day-number">13</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-wed fc-widget-content fc-day17"><div><div class="fc-day-number">14</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-thu fc-widget-content fc-day18"><div><div class="fc-day-number">15</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-fri fc-widget-content fc-day19"><div><div class="fc-day-number">16</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-sat fc-widget-content fc-day20 fc-last"><div><div class="fc-day-number">17</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td></tr><tr class="fc-week3"><td class="fc-sun fc-widget-content fc-day21 fc-first"><div style="min-height: 54px;"><div class="fc-day-number">18</div><div class="fc-day-content"><div style="position: relative; height: 0px;">&nbsp;</div></div></div></td><td class="fc-mon fc-widget-content fc-day22"><div><div class="fc-day-number">19</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-tue fc-widget-content fc-day23"><div><div class="fc-day-number">20</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-wed fc-widget-content fc-day24 fc-state-highlight fc-today"><div><div class="fc-day-number">21</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-thu fc-widget-content fc-day25"><div><div class="fc-day-number">22</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-fri fc-widget-content fc-day26"><div><div class="fc-day-number">23</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-sat fc-widget-content fc-day27 fc-last"><div><div class="fc-day-number">24</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td></tr><tr class="fc-week4"><td class="fc-sun fc-widget-content fc-day28 fc-first"><div style="min-height: 54px;"><div class="fc-day-number">25</div><div class="fc-day-content"><div style="position: relative; height: 0px;">&nbsp;</div></div></div></td><td class="fc-mon fc-widget-content fc-day29"><div><div class="fc-day-number">26</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-tue fc-widget-content fc-day30"><div><div class="fc-day-number">27</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-wed fc-widget-content fc-day31"><div><div class="fc-day-number">28</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-thu fc-widget-content fc-day32"><div><div class="fc-day-number">29</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-fri fc-widget-content fc-day33"><div><div class="fc-day-number">30</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-sat fc-widget-content fc-day34 fc-last fc-other-month"><div><div class="fc-day-number">1</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td></tr><tr class="fc-week5 fc-last"><td class="fc-sun fc-widget-content fc-day35 fc-first fc-other-month"><div style="min-height: 58px;"><div class="fc-day-number">2</div><div class="fc-day-content"><div style="position: relative; height: 0px;">&nbsp;</div></div></div></td><td class="fc-mon fc-widget-content fc-day36 fc-other-month"><div><div class="fc-day-number">3</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-tue fc-widget-content fc-day37 fc-other-month"><div><div class="fc-day-number">4</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-wed fc-widget-content fc-day38 fc-other-month"><div><div class="fc-day-number">5</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-thu fc-widget-content fc-day39 fc-other-month"><div><div class="fc-day-number">6</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-fri fc-widget-content fc-day40 fc-other-month"><div><div class="fc-day-number">7</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td><td class="fc-sat fc-widget-content fc-day41 fc-last fc-other-month"><div><div class="fc-day-number">8</div><div class="fc-day-content"><div style="position:relative">&nbsp;</div></div></div></td></tr></tbody></table><div style="position:absolute;z-index:8;top:0;left:0"></div></div></div></div>
+                </div>
+            </section>
+        </aside>
+    </div>*@
+
+
+
+@*  teckleMargin*@
+
+
+
+
+
+
+
+<div class="row" style="margin:20px 0px 0px 0px">
+
+    <div class="col-lg-6">
+        <div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Latest Sales</div>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <table class="table-bordered" style="width:100%;text-align:center">
+                    <tr style="font-weight:bold">
+                        <td>Date</td>
+                        <td>Grand Total</td>
+                    </tr>
+                    <tr><td>hdhfvhgfveg</td><td>lqhgfx</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6" style="box-shadow:2px 2px 5px grey;background-color:white">
+
+
+        <div class="panel-body">
+            <div class="task-progress">
+                <h1>Statistics</h1>
+                <p>This Month</p>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        Number Of Sales
+                    </td>
+                    <td>
+                        <span class="badge bg-important">
+                            75
+                        </span>
+                    </td>
+                    <td>
+                        <div id="work-progress1"><canvas width="47" height="20" style="display: inline-block; width: 47px; height: 20px; vertical-align: top;"></canvas></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>
+                        Total Sales
+                    </td>
+                    <td>
+                        <span class="badge bg-important">
+                            INR                                            73,822.00
+                        </span>
+                    </td>
+                    <td>
+                        <div id="work-progress1"><canvas width="47" height="20" style="display: inline-block; width: 47px; height: 20px; vertical-align: top;"></canvas></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>
+                        Number Of Expenses
+                    </td>
+                    <td>
+                        <span class="badge bg-success">
+                            2
+                        </span>
+                    </td>
+                    <td>
+                        <div id="work-progress2"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>
+                        Total Expense
+                    </td>
+                    <td>
+                        <span class="badge bg-success">
+                            INR                                            52000
+                        </span>
+                    </td>
+                    <td>
+                        <div id="work-progress2"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>
+                        Number Of Medicines
+                    </td>
+                    <td>
+                        <span class="badge bg-info">
+                            4
+                        </span>
+                    </td>
+                    <td>
+                        <div id="work-progress3"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>6</td>
+                    <td>
+                        In Stock Inventory Quantity
+                    </td>
+                    <td>
+                        <span class="badge bg-info">
+                            224
+                        </span>
+                    </td>
+                    <td>
+                        <div id="work-progress3"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>
+                        Medicine out Of Stock
+                    </td>
+                    <td>
+                        <span class="badge bg-warning">
+                            0
+                        </span>
+                    </td>
+                    <td>
+                        <div id="work-progress4"><canvas width="47" height="22" style="display: inline-block; width: 47px; height: 22px; vertical-align: top;"></canvas></div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+@*
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Products</div>
+        <div class="panel-body">
+            <p>The following products are currently available on our store.</p>
+        </div>
+        <!-- List group -->
+        <div class="list-group">
+            <a class="list-group-item">
+                Mobile Phones <span class="badge">50</span>
+            </a>
+            <a href="#" class="list-group-item">
+                Laptops & Desktops <span class="badge">145</span>
+            </a>
+            <a href="#" class="list-group-item">
+                Tablets <span class="badge">30</span>
+            </a>
+            <a href="#" class="list-group-item">
+                Audio & Video Players <span class="badge">65</span>
+            </a>
+            <a href="#" class="list-group-item">
+                Camera <span class="badge">8</span>
+            </a>
+        </div>
+    </div>
+    <h4>DashboardView</h4>
+    <hr />
+
+
+
+    <dl class="dl-horizontal">
+*@@*
+    <dt>
+        @Html.DisplayNameFor(model => model.SalesToday)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.SalesToday)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.ExpeneseToday)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.ExpeneseToday)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.CountStock)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CountStock)
+    </dd>*@
+
+@*<dt>
+                @Html.DisplayNameFor(model => model.CountSales)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CountSales)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalSales)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalSales)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CountExpenses)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CountExpenses)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalExpenses)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalExpenses)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StockInventoryQuantity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StockInventoryQuantity)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CountOutStockMedicine)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CountOutStockMedicine)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+
+
+*@

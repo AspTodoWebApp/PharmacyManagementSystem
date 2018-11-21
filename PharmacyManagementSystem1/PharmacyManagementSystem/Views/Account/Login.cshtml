@@ -1,0 +1,454 @@
+﻿@using PharmacyManagementSystem.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+@*<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                    </div>
+                </div>
+                <p>
+                    @Html.ActionLink("Register as a new user", "Register")
+                </p>
+                 
+                    <p>
+
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>
+            }
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+</div>*@
+
+
+@*most updated
+<div class="container" style="align-self:center;align-content:center">
+    <div class="card" style="background-color:aqua;border:1px solid">
+        <img class="card-img-top" src="favicon.ico" alt="Card image" style="width:100%">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12"></div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-envelope"></i>
+                                    </span>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Log in" class="btn btn-default" />
+                                </div>
+                            </div>
+                            <p>
+                                @Html.ActionLink("Register as a new user", "Register")
+                            </p>
+                            <p>
+
+                                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                            </p>
+                            @* Enable this once you have account confirmation enabled for password reset functionality
+                                <p>
+                                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                                </p>*@
+                        @*}
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*
+    <style>
+               body {
+                   font-family: "Lato", sans-serif;
+               }
+
+               /* Fixed sidenav, full height */
+               /*
+        * Specific styles of signin component
+        */
+               /*
+        * General styles
+        */
+               body, html {
+                   height: 100%;
+                   background-repeat: no-repeat;
+               }
+
+               .card-container.card {
+                   max-width: 400px;
+                   padding: 40px 40px;
+               }
+
+               .btn {
+                   font-weight: 700;
+                   height: 36px;
+                   -moz-user-select: none;
+                   -webkit-user-select: none;
+                   user-select: none;
+                   cursor: default;
+               }
+
+               /*
+        * Card component
+        */
+               .card {
+                   background-color: white;
+                   /* just in case there no content*/
+                   padding: 20px 25px 30px;
+                   margin: 0 auto 25px;
+                   margin-top: 50px;
+                   /* shadows and rounded borders */
+                   -moz-border-radius: 2px;
+                   -webkit-border-radius: 2px;
+                   border-radius: 2px;
+                   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+               }
+
+               .profile-img-card {
+                   width: 96px;
+                   height: 96px;
+                   margin: 0 auto 10px;
+                   display: block;
+                   -moz-border-radius: 50%;
+                   -webkit-border-radius: 50%;
+                   border-radius: 50%;
+               }
+
+               /*
+        * Form styles
+        */
+               .profile-name-card {
+                   font-size: 16px;
+                   font-weight: bold;
+                   text-align: center;
+                   margin: 10px 0 0;
+                   min-height: 1em;
+               }
+
+               .reauth-email {
+                   display: block;
+                   color: #404040;
+                   line-height: 2;
+                   margin-bottom: 10px;
+                   font-size: 14px;
+                   text-align: center;
+                   overflow: hidden;
+                   text-overflow: ellipsis;
+                   white-space: nowrap;
+                   -moz-box-sizing: border-box;
+                   -webkit-box-sizing: border-box;
+                   box-sizing: border-box;
+               }
+
+               .form-signin #inputEmail,
+               .form-signin #inputPassword {
+                   direction: ltr;
+                   height: 44px;
+                   font-size: 16px;
+               }
+
+               .form-signin input[type=email],
+               .form-signin input[type=password],
+               .form-signin input[type=text],
+               .form-signin button {
+                   width: 100%;
+                   display: block;
+                   margin-bottom: 10px;
+                   z-index: 1;
+                   position: relative;
+                   -moz-box-sizing: border-box;
+                   -webkit-box-sizing: border-box;
+                   box-sizing: border-box;
+               }
+
+               .form-signin .form-control:focus {
+                   border-color: rgb(104, 145, 162);
+                   outline: 0;
+                   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+                   box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+               }
+
+               .btn.btn-signin {
+                   /*background-color: #4d90fe; */
+                   background-color: rgb(104, 145, 162);
+                   /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+                   padding: 0px;
+                   font-weight: 700;
+                   font-size: 14px;
+                   height: 36px;
+                   -moz-border-radius: 3px;
+                   -webkit-border-radius: 3px;
+                   border-radius: 3px;
+                   border: none;
+                   -o-transition: all 0.218s;
+                   -moz-transition: all 0.218s;
+                   -webkit-transition: all 0.218s;
+                   transition: all 0.218s;
+               }
+
+                   .btn.btn-signin:hover,
+                   .btn.btn-signin:active,
+                   .btn.btn-signin:focus {
+                       background-color: rgb(12, 97, 33);
+                   }
+
+               .forgot-password {
+                   color: rgb(104, 145, 162);
+               }
+
+                   .forgot-password:hover,
+                   .forgot-password:active,
+                   .forgot-password:focus {
+                       color: rgb(12, 97, 33);
+                   }
+
+               /* Some media queries for responsiveness */
+    </style>*@
+
+</head>
+<body>
+  
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <div class="container">
+        <div class="card card-container">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <hr />
+                    
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-envelope"></i>
+                                        </span>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Log in" class="btn btn-success" />
+                                </div>
+                            </div>
+                            <p>
+                                @Html.ActionLink("Register as a new user", "Register")
+                            </p>
+                            <p>
+
+                                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                            </p>
+                         
+
+
+
+                }
+            </section>
+        </div><!-- /card-container -->
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/css/main.css">
+
+    @*Login card final start*@
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form">
+                    <span class="login100-form-logo">
+                        <i class="zmdi zmdi-landscape"></i>
+                    </span>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    <span class="login100-form-title p-b-34 p-t-27">
+                        Log in
+                    </span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter username">
+                        <input class="input100" type="text" name="Email" id="Email" placeholder="Username">
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+
+                    </div>
+                   
+                 
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <input class="input100" type="password" name="Password" id="Password" placeholder="Password">
+                        <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                    </div>
+
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                        <label class="label-checkbox100" for="ckb1">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-90">
+                        <a class="txt1" href="#">
+                            Forgot Password?
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    }
+        <!-- page-body-wrapper ends -->
+    
+    @*login card final end*@
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/LoginUI/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/LoginUI/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/js/main.js"></script>
+   
+</body>
+</html>

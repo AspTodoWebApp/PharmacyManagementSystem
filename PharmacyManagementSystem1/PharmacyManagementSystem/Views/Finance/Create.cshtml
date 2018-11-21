@@ -1,0 +1,170 @@
+﻿@model PharmacyManagementSystem.Models.PlaceOrder
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-plus-sign">
+
+        </span>
+        Point Of Sale
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-2 pull-right"><button class="btn btn-success">Add Item</button></div>
+
+        </div>
+    </div>
+        <div>@Html.Raw(TempData["msg"])</div>
+     @*   <div class="card">
+            <div class="card-body">
+         
+                <div class="row">*@
+                    <div class="col-lg-12">
+                        <table 
+                               class="table table-bordered table-hover bg-white" style="text-align:center">
+                            <thead class="bg-primary text-white">
+                                <tr>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Category
+                                    </th>
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    <th>
+                                        SubTotal
+                                    </th>
+
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Panadol</td>
+                                    <td>
+                                        Tablet
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        10
+                                    </td>
+
+                                    <td>
+                                     
+
+                                                    <button type="button" class="btn btn-success btn-xs">
+                                                        <span class="glyphicon glyphicon-edit"></span> Edit
+                                                    </button>
+                                              
+                                                    <button type="button" class="btn btn-danger btn-xs" onclick="confirmDelete();"><span class="glyphicon glyphicon-trash"></span>Delete</button>
+                                              
+                                    </td>
+                                </tr>
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                   @* </div>
+                </div>
+            </div>*@
+                    <div class="col-md-offset-2 col-md-10" style="margin-top:10px">
+                        <input type="submit" value="Print Bill" class="btn btn-success" onclick="printContent('CustomerBill')" />
+
+                    </div>
+                    <div id="CustomerBill" style="align-content:center" class="invisible">
+                        <h1>Pharmacy Management System</h1>
+                        <p>Customer Receipt</p>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Unity Price</th>
+                                <th>QTY</th>
+                                <th>Total</th>
+                            </tr>
+                            <tr>
+                                <td>Panadol</td>
+                                <td>Tablet</td>
+                                <td>2.0</td>
+                                <td>5</td>
+                                <td>10</td>
+                            </tr>
+
+                        </table>
+                        <dl class="dl-horizontal">
+                            <dt>SubTotal</dt>
+                            <dd>10</dd>
+                            <dt>Discount</dt>
+                            <dd>0</dd>
+                            <dt>SubTotal</dt>
+                            <dt>Grand Total</dt>
+                            <dd>20</dd>
+                        </dl>
+                    </div>
+
+
+
+
+
+
+                    <script>
+function printContent(el) {
+    var restorePage = document.body.innerHTML;
+    var printcontent = document.getElementById(el).innerHTML;
+    document.body.innerHTML = printcontent;
+    window.print();
+    document.body.innerHTML = restorePage;
+}
+
+
+                        function confirmDelete() {
+                            confirm("Are u sure u want to selected delete medicine?")
+                        }</script>
+
+                    }
+
+
+
+                    @section Scripts {
+                        @Scripts.Render("~/bundles/jqueryval")
+                    }
