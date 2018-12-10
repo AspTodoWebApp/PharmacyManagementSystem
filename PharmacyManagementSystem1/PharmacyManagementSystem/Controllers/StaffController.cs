@@ -15,57 +15,36 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Security.Cryptography;
 using System.Web.Security;
+using System.Threading.Tasks;
 
 namespace PharmacyManagementSystem.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class StaffController : ApplicationBaseController
     {
         PharmacyDBEntities4 _db;
-       
-   
-      public  StaffController()
+      
+        public  StaffController()
         {
             _db = new PharmacyDBEntities4();
         }
         // GET: Staff
-    
- // [Authorize(Roles ="Manager")]
-  
+
+        // [Authorize(Roles ="Manager")]
+     //   [Authorize(Roles = "Staff")]
         public ActionResult Index()
         {
-         //   Roles.AddUserToRole(User.Identity.GetUserName(), "Admin");
-           
-            // AuthorizeAttribute roles = new AuthorizeAttribute();
-
-            ViewBag.type = 0;
-            //    string loginId = User.Identity.GetUserId();
-            //     string role = _db.AspNetRoles.Find(loginId).Name;
-            //if (LoginRole.role == "Staff")
-            //{
-            //    return RedirectToAction("addStaff");
-            //}
-            //else
-            //{
-
-                return View(_db.Staffs.ToList());
-           
-               
-          // }
+          return View(_db.Staffs.ToList());
+         
         }
-
-        public ActionResult myModal(string Id)
+        public JsonResult GetSearchValue(string search)
         {
-            ViewBag.type = 1;
-            Staff employee = _db.Staffs.Where(st=>st.Name==Id).First();
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView("_myModal", employee);
-
+           
+            List<Staff> allsearch = _db.Staffs.Where(x => x.Email.StartsWith(search)).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet};
         }
-  //  [Authorize(Roles ="Admin")]
-  
+        //  [Authorize(Roles ="Admin")]
+    //    [Authorize(Roles="Admin")]
         public ActionResult addStaff()
         {
             
@@ -73,9 +52,11 @@ namespace PharmacyManagementSystem.Controllers
          
         } 
         [HttpPost]
+    
         public ActionResult addStaff(Staff s)
         {
-            try {
+            try
+            {
 
                 Staff st = new Staff();
                 st.Name = s.Name;
@@ -84,12 +65,8 @@ namespace PharmacyManagementSystem.Controllers
                 st.Phone = s.Phone;
                 st.Address = s.Address;
                 _db.Staffs.Add(st);
-                //String builder = new StringB();
-                //builder.Append(GetRandomString(2));
-                //builder.Append(RandomNumber(1000, 9999));
-                //builder.Append(RandomString(2, false));
 
-
+                
                 string random = GetRandomString(5);
                 SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                    client.EnableSsl = true;
@@ -103,64 +80,53 @@ namespace PharmacyManagementSystem.Controllers
                    msg.Subject = "Staff added by admin";
                    msg.Body = random;
                    client.Send(msg);
-             //     random = "Numan311@";
-                var hasher = new PasswordHasher();
-                  AspNetUser staff = new AspNetUser();
-                staff.Id = Guid.NewGuid().ToString();
-                  staff.Email = s.Email;
-                staff.EmailConfirmed = false;
-                staff.TwoFactorEnabled = false;
-                staff.LockoutEnabled = true;
-                staff.AccessFailedCount = 0;
-                  staff.SecurityStamp =Guid.NewGuid().ToString();
-                staff.PasswordHash = hasher.HashPassword(random);
-                    staff.UserName = s.Email;
-                _db.AspNetUsers.Add(staff);
+                //     random = "Numan311@";
+                 var hasher = new PasswordHasher();
+                     AspNetUser staff = new AspNetUser();
+                   staff.Id = Guid.NewGuid().ToString();
+                     staff.Email = s.Username;
+                   staff.EmailConfirmed = false;
+                   staff.TwoFactorEnabled = false;
+                   staff.LockoutEnabled = true;
+                   staff.AccountUserName = s.Name;
+                   staff.AccessFailedCount = 0;
+                   staff.GmailAccount = s.Email;
+                     staff.SecurityStamp =Guid.NewGuid().ToString();
+                   staff.PasswordHash = hasher.HashPassword(random);
+                       staff.UserName = s.Username;
+                   _db.AspNetUsers.Add(staff);
 
-                AspNetRole role = new AspNetRole();
-                role.Id = staff.Id;
-                role.Name = "Staff";
-                _db.AspNetRoles.Add(role);
-                    _db.SaveChanges();
-               
-               
-                 TempData["msg"] = "<script>alert('added');</script>";
+              /*  AspNetRole staffRole = new AspNetRole();
+                staffRole.Id = Guid.NewGuid().ToString();
+                staffRole.Name = "Staff";
+                staffRole.Discriminator = "ApplicationRole";
+                _db.AspNetRoles.Add(staffRole);*/
+
+                AspNetUserRole assignRole = new AspNetUserRole();
+                assignRole.AssignRoleId = Guid.NewGuid().ToString();
+                assignRole.RoleId = _db.AspNetRoles.Where(role => role.Name == "Staff").FirstOrDefault().Id;
+                assignRole.UserId = staff.Id;
+                _db.AspNetUserRoles.Add(assignRole);
+                _db.SaveChanges();
+
+
+
+
+                TempData["msg"] = "<script>alert('added');</script>";
 
                 return RedirectToAction("Index");
-                
-            }
-            catch
-            {
-                return PartialView("_addStaff");
-            }
-           
 
         }
+            catch
+            {
+                return RedirectToAction("Create");
+    }
 
 
-        public JsonResult GetSearchingData(string SearchBy,string SearchValue)
-          {
-              List<Staff> stafflist = new List<Staff>();
-              if (SearchBy == "Name")
-              {
-                  try
-                  {
-                        stafflist = _db.Staffs.Where(x => x.Name.StartsWith(SearchValue)).ToList();
+}
 
 
-                  }
-                  catch(FormatException)
-                  {
-                      Console.WriteLine("{0} is Not A Name ", SearchValue);
-                  }
-                  return Json(stafflist, JsonRequestBehavior.AllowGet);
-              }
-              else
-              {
-                  stafflist = _db.Staffs.Where(x => x.Username.StartsWith(SearchValue)).ToList();
-                  return Json(stafflist, JsonRequestBehavior.AllowGet);
-              }
-          }
+      
 
 
 
@@ -170,12 +136,10 @@ namespace PharmacyManagementSystem.Controllers
             //for example, you could include uppercase too
             const string alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-
-            // Random is not truly random,
+         // Random is not truly random,
             // so we try to encourage better randomness by always changing the seed value
             Random rnd = new Random((seed + DateTime.Now.Millisecond));
-
-
+         
             // basic 5 digit random number
             string result = rnd.Next(10000, 99999).ToString();
            
@@ -239,21 +203,21 @@ namespace PharmacyManagementSystem.Controllers
        
         // GET: Staff/Edit/5
         //   public ActionResult Edit(int id)
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string Id)
         {
-            Staff selectedStaff = _db.Staffs.Find(id);//_db.Staffs.Where(x => x.Email == id).First();
+            Staff selectedStaff = _db.Staffs.Where(x => x.Email == Id).First();
 
             return PartialView("_editStaff",selectedStaff);
         }
 
         // POST: Staff/Edit/5
         [HttpPost]
-        public ActionResult Edit(string id,Staff collection)
+        public ActionResult Edit(string Id,Staff collection)
         {
             try
             {
                 // TODO: Add update logic here
-                Staff s = _db.Staffs.Find(id);//_db.Staffs.Where(x => x.Email == id).First();
+                Staff s = _db.Staffs.Find(Id);//_db.Staffs.Where(x => x.Email == id).First();
                 s.Name = collection.Name;
                 s.Username = collection.Username;
              //   s.Email = collection.Email;

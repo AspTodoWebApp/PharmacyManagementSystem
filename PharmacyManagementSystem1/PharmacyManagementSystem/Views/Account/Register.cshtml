@@ -3,7 +3,7 @@
     ViewBag.Title = "Register";
 }
 
-@*validation*@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +13,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    
+
 </head>
 <body style="background-color:#f1f2f7">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -25,40 +25,44 @@
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <section id="loginForm">
-              @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-              {
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
                     @Html.AntiForgeryToken()
-                    <hr />
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                  
+                  
+                    @Html.ValidationMessageFor(m=>m.Username,"", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.Email,"", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.GmailAccount,"", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.Password,"", new { @class = "text-danger" })
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-envelope"></i>
-                            </span>
-                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-                            @* aahhahhahhahh *@
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-envelope"></i>
+                                </span>
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+
+                            </div>
                         </div>
                     </div>
-                </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-12">
+                        <div class="col-md-12">
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-envelope"></i>
                                 </span>
                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                              
+
                             </div>
                         </div>
                     </div>
 
 
 
-                    
+
 
                     <div class="col-md-12">
                         <div class="input-group">
@@ -91,25 +95,134 @@
                             </div>
                         </div>
                     </div>
-                   
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <a href="/Account/Login" class="btn btn-default">Back To Login</a>
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="submit" value="Register" class="btn btn-success" />
-                            </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a href="/Account/Login" class="btn btn-default">Back To Login</a>
                         </div>
-                 
-                      
+                        <div class="col-sm-6">
+                            <input type="submit" value="Register" class="btn btn-success" />
+                        </div>
+                    </div>
+
+
 
                 }
             </section>
         </div><!-- /card-container -->
     </div>
 
+    
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/LoginUI/css/main.css">
+
+    @*Login card final start*@
+  @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+  {
+        @Html.AntiForgeryToken()
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+                <div class="wrap-login100">
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-logo">
+                            <i class="zmdi zmdi-landscape"></i>
+                        </span>
+
+                      
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                       
+                       
+                        <span class="login100-form-title p-b-34 p-t-27">
+                           Register
+                        </span>
+
+                          <div class="wrap-input100 validate-input" data-validate="Enter username">
+                            <input class="input100" type="text" name="Username" id="Username" placeholder="Enter Username">
+                            <span class="focus-input100" data-placeholder="&#xf207;"></span>
+
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Enter username">
+                            <input class="input100" type="text" name="Email" id="Email" placeholder="Enter Email">
+                            <span class="focus-input100" data-placeholder="&#xf207;"></span>
+
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Enter username">
+                            <input class="input100" type="email" name="GmailAccount" id="GmailAccount" placeholder="Enter GmailAccount">
+                            <span class="focus-input100" data-placeholder="&#xf207;"></span>
+
+                        </div>
+
+                        
+
+                        <div class="wrap-input100 validate-input" data-validate="Enter password">
+                            <input class="input100" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="ConfirmPassword">
+                            <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Enter password">
+                            <input class="input100" type="password" name="Password" id="Password" placeholder="Password">
+                            <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                        </div>
+
+                      
+
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn">
+                                Register
+                            </button>
+                        </div>
+                        
+ <div class="text-white text-center">
+
+                            <span class="margin-left:15px">@Html.ActionLink("Back to Login", "Login", null, new { @class = "text-white" })</span>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    <!-- page-body-wrapper ends -->
+    @*login card final end*@
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/LoginUI/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/LoginUI/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginUI/js/main.js"></script>
+
 </body>
 </html>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

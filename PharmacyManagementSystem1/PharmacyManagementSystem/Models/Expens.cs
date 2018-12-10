@@ -11,12 +11,21 @@ namespace PharmacyManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Expens
     {
         public int SerialNumber { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+
         public System.DateTime Date { get; set; }
+        [Required]
         public string Category { get; set; }
+        public System.Web.Mvc.SelectList CategoryList { get; set; }
+        [Required]
+        [Range(typeof(int), "0", "10000", ErrorMessage = "Quantity must be greater than 0")]
         public int Amount { get; set; }
     }
 }

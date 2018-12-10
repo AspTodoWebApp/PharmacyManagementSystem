@@ -11,9 +11,13 @@ namespace PharmacyManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public partial class MedicineCategory
     {
+        [Required]
+        [Remote("CheckCategoryExists", "Stock", ErrorMessage = "Category Already Exist")]
         public string Category { get; set; }
     }
 }

@@ -14,15 +14,17 @@ namespace PharmacyManagementSystem.Models
         {
             if (User != null)
             {
-                var context = new PharmacyDBEntities2();
+                var context = new PharmacyDBEntities4();
                 var userid = User.Identity.GetUserId();
                 var username = context.AspNetUsers.Where(x => x.Id == userid).First().AccountUserName;
                 var currentdate = DateTime.Today.ToString("yyyy-MM-dd");
                 var MedicineAddedToday = context.Stocks.Where(x => x.AddedDate.ToString() == currentdate).Count();
+                var SaleToday = context.AllSales.Where(x => x.Date.ToString() == currentdate).Count();
                 if (!string.IsNullOrEmpty(username) || MedicineAddedToday>=0)
                 {
                     ViewData.Add("FullName", username);
                     ViewData.Add("MedicineAddToday", MedicineAddedToday);
+                    ViewData.Add("SaleToday", SaleToday);
 
                 }
             }

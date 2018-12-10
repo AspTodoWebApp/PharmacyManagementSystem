@@ -179,12 +179,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Controllers\ApplicationBaseController.cs" />
     <Compile Include="Models\AllSale.cs">
       <DependentUpon>PharmacyDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ApplicationBaseController.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>PharmacyDb.tt</DependentUpon>
     </Compile>
@@ -197,6 +196,11 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>PharmacyDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetUserRole.cs">
+      <DependentUpon>PharmacyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CreateBill.cs" />
+    <Compile Include="Models\CreatePOS.cs" />
     <Compile Include="Models\DashboardView.cs" />
     <Compile Include="Models\Expens.cs">
       <DependentUpon>PharmacyDb.tt</DependentUpon>
@@ -204,9 +208,7 @@
     <Compile Include="Models\ExpenseCategory.cs">
       <DependentUpon>PharmacyDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HttpActionContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\LoginRole.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MedicineCategory.cs">
       <DependentUpon>PharmacyDb.tt</DependentUpon>
@@ -233,6 +235,9 @@
       <DependentUpon>PharmacyDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Stock.cs">
+      <DependentUpon>PharmacyDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>PharmacyDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -285,6 +290,14 @@
     <Content Include="images\menu_icons\18.png" />
     <Content Include="images\menu_icons\19.png" />
     <Content Include="images\menu_icons\20.png" />
+    <Content Include="images\pageLoader.gif" />
+    <Content Include="images\Preloader_1.gif" />
+    <Content Include="images\Preloader_2.gif" />
+    <Content Include="images\Preloader_3.gif" />
+    <Content Include="images\Preloader_4.gif" />
+    <Content Include="images\Preloader_5.gif" />
+    <Content Include="images\Preloader_6.gif" />
+    <Content Include="images\Preloader_7.gif" />
     <Content Include="images\samples\1280x768\1.jpg" />
     <Content Include="images\samples\1280x768\10.jpg" />
     <Content Include="images\samples\1280x768\11.jpg" />
@@ -347,6 +360,7 @@
     <Content Include="js\js-grid.js" />
     <Content Include="js\just-gage.js" />
     <Content Include="js\light-gallery.js" />
+    <Content Include="js\Loaderjquery.js" />
     <Content Include="js\mapeal.js" />
     <Content Include="js\mapeal_example_2.js" />
     <Content Include="js\mapeal_example_3.js" />
@@ -1098,14 +1112,10 @@
     <Content Include="Views\Finance\ExpenseToday.cshtml" />
     <Content Include="Views\Finance\EditExpense.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
-    <Content Include="Views\Staff\InModal.cshtml" />
-    <Content Include="Views\Staff\partialviewme.cshtml" />
     <Content Include="Views\Staff\Create.cshtml" />
     <Content Include="Views\Staff\Partial1.cshtml" />
-    <Content Include="Views\Staff\_myModal.cshtml" />
     <Content Include="Views\Staff\_addStaff.cshtml" />
     <Content Include="Views\Staff\_editStaff.cshtml" />
-    <Content Include="Views\Stock\_addMedicine.cshtml" />
     <Content Include="Views\Stock\_editStock.cshtml" />
     <Content Include="Views\Stock\_loadQuantity.cshtml" />
     <Content Include="vendors\iconfonts\puse-icons-feather\fonts\feather-webfont.eot" />
@@ -1127,7 +1137,12 @@
     <Content Include="vendors\iconfonts\mdi\fonts\materialdesignicons-webfontb675.ttf" />
     <Content Include="vendors\iconfonts\mdi\fonts\materialdesignicons-webfontb675.woff" />
     <Content Include="vendors\iconfonts\mdi\fonts\materialdesignicons-webfontd41d.eot" />
-    <Content Include="Views\Dashboard\dash.cshtml" />
+    <Content Include="Views\Finance\ShowBill.cshtml" />
+    <Content Include="Views\Finance\editsale.cshtml" />
+    <Content Include="Views\Finance\EditBill.cshtml" />
+    <Content Include="Views\Stock\MedicineView.cshtml" />
+    <Content Include="Views\Stock\AddMedicine.cshtml" />
+    <Content Include="Views\Stock\_addStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1159,7 +1174,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54370</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

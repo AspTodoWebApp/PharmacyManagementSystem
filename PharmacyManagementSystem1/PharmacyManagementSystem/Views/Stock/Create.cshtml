@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Create";
 }
-
+@*
 <div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
     <div class="panel-heading">
         <span class="glyphicon glyphicon-plus-sign">
@@ -12,12 +12,13 @@
         Add Medicine
     </div>
 </div>
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-     
+    
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
        
      
@@ -27,7 +28,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
              @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })  
-               @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+               
                
             </div>
         </div>
@@ -35,11 +36,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-            
-              @*  @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })*@
-                @Html.DropDownList("Category",new SelectList(ViewBag.Category, "Value", "Text"), "Select...", new { @class = "form-control" })
+            *@
+        //      @*  @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })*@
+        //     @*   @Html.DropDownList("Category",new SelectList(ViewBag.Category, "Value", "Text"), "Select...", new { @class = "form-control" })*@
+              
+@*
+  @Html.DropDownListFor(model => model.Category, Model.CategoryList, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -87,4 +90,4 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@

@@ -1,0 +1,80 @@
+﻿@model PharmacyManagementSystem.Models.CreateBill
+
+@{
+    ViewBag.Title = "ShowBill";
+}
+
+<h2>ShowBill</h2>
+
+<div>
+    <h4>CreateBill</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GrandTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrandTotal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<div id="CustomerBill" style="align-content:center">
+    <h1>Pharmacy Management System</h1>
+    <p>Customer Receipt</p>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Unity Price</th>
+            <th>QTY</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model.billList)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Category)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Discount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SubTotal)</td>
+                </tr>}
+            <tbody>
+</table>
+    <dl class="dl-horizontal">
+        <dt>SubTotal</dt>
+        <dd>@Model.SubTotal</dd>
+        <dt>Discount</dt>
+        <dd>@Model.Discount</dd>
+     
+        <dt>Grand Total</dt>
+        <dd>@Model.GrandTotal</dd>
+    </dl>
+</div>

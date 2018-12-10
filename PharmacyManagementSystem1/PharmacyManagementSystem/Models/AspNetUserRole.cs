@@ -12,16 +12,13 @@ namespace PharmacyManagementSystem.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PlaceOrder
+    public partial class AspNetUserRole
     {
-        public int SerialNumber { get; set; }
-        public int OrderId { get; set; }
-        public string Name { get; set; }
-        public string Category { get; set; }
-        public int UnitPrice { get; set; }
-        public int Quantity { get; set; }
-        public double Discount { get; set; }
-        public double SubTotal { get; set; }
-        public System.DateTime OrderDate { get; set; }
+        public string AssignRoleId { get; set; }
+        public string UserId { get; set; }
+        public string RoleId { get; set; }
+    
+        public virtual AspNetRole AspNetRole { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

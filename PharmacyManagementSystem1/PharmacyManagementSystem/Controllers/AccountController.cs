@@ -22,6 +22,7 @@ namespace PharmacyManagementSystem.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
         AuthorizeAttribute authorize;  //set authorze person(private write or not does n't matter as default is private
         PharmacyDBEntities4 _db;
         public AccountController()
@@ -30,6 +31,34 @@ namespace PharmacyManagementSystem.Controllers
             _db = new PharmacyDBEntities4();
         }
 
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+            RoleManager = roleManager;
+        }
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set 
+            { 
+                _signInManager = value; 
+            }
+        }
 
         [AllowAnonymous]
         public JsonResult CheckEmailExists(string Email)
@@ -103,25 +132,6 @@ namespace PharmacyManagementSystem.Controllers
             catch (Exception)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
             }
         }
 
@@ -241,29 +251,27 @@ namespace PharmacyManagementSystem.Controllers
             {//as login take username so we store email in username
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,AccountUserName=model.Username,GmailAccount=model.GmailAccount };
                 var result = await UserManager.CreateAsync(user, model.Password);
-              //  Roles.AddUserToRole(user.UserName,"User");
-              /*  _db = new PharmacyDBEntities2();*/
+              var role = new ApplicationRole() { Name = "Staff" };
+                await RoleManager.CreateAsync(role);
+
                 if (result.Succeeded)
                 {
-                 
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                         /* AspNetRole role = new AspNetRole();
-                          role.Id = user.Id;
-                          role.Name = "Admin";
-                          _db.AspNetRoles.Add(role);
-                          _db.SaveChanges();*/
+                    //   result = await UserManager.AddToRoleAsync(user.Id, "Staff");
+                    string adminRoleId = _db.AspNetRoles.Where(rol => rol.Name == "Admin").First().Id;
+                    AspNetUserRole assing = new AspNetUserRole();
+                    assing.AssignRoleId = Guid.NewGuid().ToString();
+                    assing.UserId = user.Id;
+                    assing.RoleId = adminRoleId;
+                    _db.AspNetUserRoles.Add(assing);
+                    _db.SaveChanges();
+                   await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    //    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //   var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //   await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        //    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        //   var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        //   await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-
-
-
-                         // LoginRole.role = role.Name;
-                        return RedirectToAction("Index", "Dashboard");
+                 return RedirectToAction("Index", "Dashboard");
                     
                 }
                 AddErrors(result);
@@ -285,7 +293,7 @@ namespace PharmacyManagementSystem.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-        
+       
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
@@ -309,24 +317,35 @@ namespace PharmacyManagementSystem.Controllers
                 //   {
 
                 // Don't reveal that the user does not exist or is not confirmed
-                string random = GetRandomString(5);
-                SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-                client.EnableSsl = true;
-                //  client.Timeout = 1000000;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential("numanuet311@gmail.com", "47841271");
-                MailMessage msg = new MailMessage();
-                msg.To.Add(model.Email);
-                msg.From = new MailAddress("numanuet311@gmail.com");
-                msg.Subject = "Recover Forget Password";
-                msg.Body = random;
-                client.Send(msg);
+                try {
+                    string random = GetRandomString(5);
+                    SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                    client.EnableSsl = true;
+                    //  client.Timeout = 1000000;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential("numanuet311@gmail.com", "47841271");
+                    MailMessage msg = new MailMessage();
+                    msg.To.Add(model.GmailAccount);
+                    msg.From = new MailAddress("numanuet311@gmail.com");
+                    msg.Subject = "Recover Forget Password";
+                    msg.Body = random;
+                    client.Send(msg);
 
-                var hashPassword = new PasswordHasher();
-                AspNetUser resetPassword = _db.AspNetUsers.Where(x => x.Email == model.Email).FirstOrDefault();
-                resetPassword.PasswordHash = hashPassword.HashPassword(random);
-                _db.SaveChanges();
+
+                    var hashPassword = new PasswordHasher();
+                    AspNetUser resetPassword = _db.AspNetUsers.Where(x => x.GmailAccount == model.GmailAccount).FirstOrDefault();
+                    resetPassword.PasswordHash = hashPassword.HashPassword(random);
+                    _db.SaveChanges();
+                    TempData["msg"] = "<script>alert('Email Send successfully');</script>";
+                    return View();
+
+                }
+                catch (Exception)
+                {
+                    TempData["msg"] = "<script>alert('Invalid Email');</script>";
+                }
+               
                 //    return View("ForgotPasswordConfirmation");
                 return View("Login");
               //  }

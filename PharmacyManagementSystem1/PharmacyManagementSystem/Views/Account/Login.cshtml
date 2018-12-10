@@ -290,7 +290,7 @@
 
 </head>
 <body>
-  
+  @*
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -356,7 +356,7 @@
             </section>
         </div><!-- /card-container -->
     </div>
-
+      *@
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/LoginUI/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
@@ -390,6 +390,7 @@
                     </span>
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     <span class="login100-form-title p-b-34 p-t-27">
                         Log in
@@ -408,22 +409,25 @@
                     </div>
 
                     <div class="contact100-form-checkbox">
-                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                        <label class="label-checkbox100" for="ckb1">
+                        <input class="input-checkbox100" id="RememberMe" type="checkbox" name="RememberMe">
+                        <label class="label-checkbox100" for="RememberMe">
                             Remember me
                         </label>
                     </div>
-
+                  
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
                             Login
                         </button>
                     </div>
+                    <div class="text-white text-center" style="margin-top:20px">Don't have account ? <span class="margin-left:15px">@Html.ActionLink("SignUP", "Register",null ,new { @class = "text-white" })</span></div>
 
-                    <div class="text-center p-t-90">
-                        <a class="txt1" href="#">
-                            Forgot Password?
-                        </a>
+                  
+                  
+                    <div class="text-white text-center">
+                       
+                            <span class="margin-left:15px">@Html.ActionLink("Forget Password", "ForgotPassword", null, new { @class = "text-white" })</span>
+                      
                     </div>
                 </form>
             </div>

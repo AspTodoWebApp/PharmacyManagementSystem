@@ -3,47 +3,7 @@
 @{
     ViewBag.Title = "ViewExpenses";
 }
-@*
-    <h2>ViewExpenses</h2>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th></th>
-        </tr>
-
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
-
-    </table>
-*@
 <div class="panel panel-default">
     <div class="panel-heading">
         <i class="fa fa-money"></i>
@@ -77,9 +37,9 @@
                             <th>Options</th>
                         </tr>
                     </thead>
-                    @foreach (var item in Model)
-                    {
-                        <tbody>
+                   
+                        <tbody>@foreach (var item in Model)
+                        {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Date)
@@ -91,7 +51,7 @@
                                     @Html.DisplayFor(modelItem => item.Amount)
                                 </td>
                                 <td>
-                                    <div class="container">
+                                  @*  <div class="container">
                                         <div class="row">
                                             <div class="col-lg-12">
 
@@ -105,15 +65,34 @@
                                                 <button type="button" class="btn btn-danger btn-xs" onclick="confirmDelete();"><span class="glyphicon glyphicon-trash"></span>Delete</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*@
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div role="button" class="btn btn-success btn-xs" style="color:white">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    @Html.ActionLink("Edit", "EditExpense", new { id = item.SerialNumber },
+                                      new { @class = "link-button" })
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" style="margin-top:5px">
+                                                <div role="button" class="btn btn-danger btn-xs" style="color:white">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    @Html.ActionLink("Delete", "DeleteExpense", new { id = item.SerialNumber },
+                                      new { @class = "link-button", onclick = "return confirm('Are you sure you wish to delete this expense?');", })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> 
                                 </td>
                             </tr>
 
-
+                        }
 
 
                         </tbody>
-                    }
+                    
 
                 </table>
             </div></div></div></div>

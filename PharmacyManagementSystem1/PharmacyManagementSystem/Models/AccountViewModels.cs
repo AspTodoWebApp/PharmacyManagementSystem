@@ -79,8 +79,8 @@ namespace PharmacyManagementSystem.Models
 
         [Required]
         [EmailAddress]
-        [Remote("CheckGmailExists", "Account", ErrorMessage = "Email Already Taken")]
         [Display(Name = "Gmail Account")]
+        [Remote("CheckGmailExists", "Account", ErrorMessage = "Gmail Already Taken")]
         public string GmailAccount { get; set; }
 
         [Required]
@@ -124,6 +124,6 @@ namespace PharmacyManagementSystem.Models
         [EmailAddress]
         [Display(Name = "Email")]
         [Remote("CheckExists", "Account", ErrorMessage = "Email Does not exist in Database")]
-        public string Email { get; set; }
+        public string GmailAccount { get; set; }
     }
 }

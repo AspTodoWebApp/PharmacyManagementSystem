@@ -16,8 +16,8 @@ namespace PharmacyManagementSystem.Models
     {
         public int OrderId { get; set; }
         public System.DateTime Date { get; set; }
-        public int SubTotal { get; set; }
-        public Nullable<double> Discount { get; set; }
-        public int GrandTotal { get; set; }
+        public double SubTotal { get; set; }
+        public double Discount { get; set; }
+        public double GrandTotal { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace PharmacyManagementSystem.Models
         public int SalesToday { get; set; }
         public int ExpeneseToday { get; set; }
         public int CountStock { get; set; }
+        public int CountStaff { get; set; }
         public int CountSales { get; set; }
         public int TotalSales { get; set; }
 
@@ -19,6 +20,10 @@ namespace PharmacyManagementSystem.Models
 
         public int CountOutStockMedicine { get; set; }
    
-
+        public List<AllSale> LatestSale { get; set; }
+        public DashboardView()
+        {
+            LatestSale = new List<AllSale>();
+        }
     }
 }

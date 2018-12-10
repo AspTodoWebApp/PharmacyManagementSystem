@@ -11,16 +11,32 @@ namespace PharmacyManagementSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public partial class Stock
     {
-       
         public string SerialNumber { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
+        [Remote("CheckStockExists", "Stock", ErrorMessage = "Stock Already Exist", AdditionalFields = "Name")]
         public string Category { get; set; }
+        public System.Web.Mvc.SelectList CategoryList { get; set; }
+        [Required]
+        [Range(typeof(int), "0", "10000", ErrorMessage = "Purchase Price must be greater than 0")]
         public int PurchasePrice { get; set; }
+        [Required]
+        [Range(typeof(int), "0", "10000", ErrorMessage = "Selling Price must be greater than 0")]
         public int SellingPrice { get; set; }
+        [Required]
+        [Range(typeof(int), "0", "10000", ErrorMessage = "Quantity must be greater than 0")]
         public int Quantity { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ExpiryDate { get; set; }
+
+        public System.DateTime AddedDate { get; set; }
     }
 }
