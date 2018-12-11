@@ -15,11 +15,11 @@
 
 
 </head>
-<body style="background-color:#f1f2f7">
+<body>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <div class="container">
+   @* <div class="container">
         <div class="card card-container">
             <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
@@ -30,10 +30,7 @@
                     @Html.AntiForgeryToken()
                   
                   
-                    @Html.ValidationMessageFor(m=>m.Username,"", new { @class = "text-danger" })
-                    @Html.ValidationMessageFor(m => m.Email,"", new { @class = "text-danger" })
-                    @Html.ValidationMessageFor(m => m.GmailAccount,"", new { @class = "text-danger" })
-                    @Html.ValidationMessageFor(m => m.Password,"", new { @class = "text-danger" })
+                
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
@@ -110,7 +107,7 @@
                 }
             </section>
         </div><!-- /card-container -->
-    </div>
+    </div>*@
 
     
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -138,7 +135,8 @@
   {
         @Html.AntiForgeryToken()
         <div class="limiter">
-            <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+            <div class="container-login100" @*style="background-@image: url('images/bg-01.jpg');"*@
+                 >
                 <div class="wrap-login100">
                     <form class="login100-form validate-form">
                         <span class="login100-form-logo">
@@ -147,7 +145,10 @@
 
                       
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                       
+                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(m => m.GmailAccount, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                        
                         <span class="login100-form-title p-b-34 p-t-27">
                            Register

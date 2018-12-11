@@ -73,7 +73,7 @@ namespace PharmacyManagementSystem.Controllers
 
 
         
-             public JsonResult CheckStockExists(string Name,string Category)
+             public ActionResult CheckStockExists(string Name,string Category)
 
         {
             bool UserExists = false;
@@ -115,6 +115,7 @@ namespace PharmacyManagementSystem.Controllers
             }
 
         }
+        
        public JsonResult CheckCategoryExists(string Category)
 
         {
@@ -157,6 +158,93 @@ namespace PharmacyManagementSystem.Controllers
 
         }
 
+        
+                   public JsonResult CheckSellingPrice(int PurchasePrice,int SellingPrice)
+
+        {
+            bool UserExists = false;
+
+            try
+            {
+
+
+               // var nameexits = _db.Stocks.Where(x => x.SellingPrice == Category).ToList();
+
+                if ( SellingPrice<=PurchasePrice)
+
+                {
+
+                    UserExists = true;
+
+                }
+
+                else
+
+                {
+
+                    UserExists = false;
+
+                }
+
+
+
+                return Json(!UserExists, JsonRequestBehavior.AllowGet);
+
+            }
+
+            catch (Exception)
+
+            {
+
+                return Json(false, JsonRequestBehavior.AllowGet);
+
+            }
+
+        }
+
+
+        public JsonResult CheckExpiryDate(DateTime ExpiryDate)
+
+        {
+            bool UserExists = false;
+
+            try
+            {
+
+
+
+                if (DateTime.Parse(ExpiryDate.ToString()) <= DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd")))
+
+                {
+
+                    UserExists = true;
+
+                }
+
+                else
+
+                {
+
+                    UserExists = false;
+
+                }
+
+
+
+                return Json(!UserExists, JsonRequestBehavior.AllowGet);
+
+            }
+
+            catch (Exception)
+
+            {
+
+                return Json(false, JsonRequestBehavior.AllowGet);
+
+            }
+
+        }
+
 
         [Authorize(Roles = "Admin")]
         public ActionResult addStock()
@@ -171,51 +259,108 @@ namespace PharmacyManagementSystem.Controllers
         {
             try
             {
-                Stock med = new Stock();
-                med.SerialNumber = Guid.NewGuid().ToString();
-                med.Name = collection.Name;
-                med.PurchasePrice = collection.PurchasePrice;
-                med.SellingPrice = collection.SellingPrice;
-                med.ExpiryDate = collection.ExpiryDate;
-                med.Quantity = collection.Quantity;
-                med.Category = collection.Category;
-                med.AddedDate = DateTime.Now;
-                _db.Stocks.Add(med);
-                _db.SaveChanges();
+                if (_db.Stocks.Where(medicine => medicine.Name == collection.Name && medicine.Category == collection.Category).ToList().Count > 0)
+                {
+                    TempData["msg"] = "<script>alert('Stock Already Exist');</script>";
 
-                return RedirectToAction("MedicineView");
+                    return RedirectToAction("AddMedicine");
+                }
+
+                else if (collection.SellingPrice<=collection.PurchasePrice)
+                {
+                    TempData["msg"] = "<script>alert('Selling Price must be greater than purchase price');</script>";
+
+                    return RedirectToAction("AddMedicine");
+                }
+              
+              
+                else if (DateTime.Parse(collection.ExpiryDate.ToString())<= DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd")))
+                {
+                    TempData["msg"] = "<script>alert('Expiry date must be greater than current date');</script>";
+
+                    return RedirectToAction("AddMedicine");
+                }
+                else
+                {
+                    Stock med = new Stock();
+                    med.SerialNumber = Guid.NewGuid().ToString();
+                    med.Name = collection.Name;
+                    med.PurchasePrice = collection.PurchasePrice;
+                    med.SellingPrice = collection.SellingPrice;
+                    med.ExpiryDate = collection.ExpiryDate;
+                    med.Quantity = collection.Quantity;
+                    med.Category = collection.Category;
+                    med.AddedDate = DateTime.Now;
+                    _db.Stocks.Add(med);
+                    _db.SaveChanges();
+
+                    TempData["msg"] = "<script>alert('Stock Added successfully');</script>";
+
+                    return RedirectToAction("MedicineView");
+                }
 
             }
             catch
             {
+                TempData["msg"] = "<script>alert('Invalid Stock Entry');</script>";
+
                 return RedirectToAction("AddMedicine");
             }
 
 
         }
 
+        [Authorize(Roles = "Admin")]
 
         // GET: Stock/Edit/5
-        /* public ActionResult Edit(int id)
+        public ActionResult EditStock(string id)
          {
-             return View();
+
+          //  Stock selectedMedicine = new Stock();
+         Stock  selectedMedicine=_db.Stocks.Find(id);
+            selectedMedicine.CategoryList = new SelectList(_db.MedicineCategories.ToList(), "Category", "Category");
+
+
+            return View(selectedMedicine);
          }
 
          // POST: Stock/Edit/5
          [HttpPost]
-         public ActionResult Edit(int id, FormCollection collection)
+         public ActionResult EditStock(string id, Stock collection)
          {
              try
-             {
-                 // TODO: Add update logic here
+            {
+                if (collection.SellingPrice <= collection.PurchasePrice)
+                {
 
-                 return RedirectToAction("Index");
-             }
+                    TempData["msg"] = "<script>alert('Stock can not updated');</script>";
+                    collection.CategoryList= new SelectList(_db.MedicineCategories.ToList(), "Category", "Category");
+                    return View(collection);
+                }
+                else
+                {
+                    Stock s = _db.Stocks.Find(id);
+                    s.Name = collection.Name;
+                    s.Category = collection.Category;
+                    s.PurchasePrice = collection.PurchasePrice;
+                    s.SellingPrice = collection.SellingPrice;
+                    s.Quantity = collection.Quantity;
+                    s.ExpiryDate = collection.ExpiryDate;
+                    _db.SaveChanges();
+
+                    TempData["msg"] = "<script>alert('Stock updated successfully');</script>";
+                    return RedirectToAction("MedicineView");
+                }
+            }
              catch
              {
-                 return View();
+
+                TempData["msg"] = "<script>alert('Stock can not updated');</script>";
+                collection.CategoryList = new SelectList(_db.MedicineCategories.ToList(), "Category", "Category");
+
+                return View(collection);
              }
-         }*/
+         }
 
         [Authorize(Roles = "Admin")]
         // GET: Staff/Edit/5
@@ -223,6 +368,7 @@ namespace PharmacyManagementSystem.Controllers
         public ActionResult Edit(string id)
         {
             Stock selectedMedicine = _db.Stocks.Find(id);//_db.Staffs.Where(x => x.Email == id).First();
+            selectedMedicine.CategoryList = new SelectList(_db.MedicineCategories.ToList(), "Category", "Category");
 
             return PartialView("_editStock", selectedMedicine);
         }
@@ -233,20 +379,31 @@ namespace PharmacyManagementSystem.Controllers
         {
             try
             {
-           
-                Stock s = _db.Stocks.Find(id);
-                s.Name = collection.Name;
-                s.Category = collection.Category;
-                 s.PurchasePrice = collection.PurchasePrice;
-                s.SellingPrice = collection.SellingPrice;
-                s.Quantity = collection.Quantity;
-                s.ExpiryDate = collection.ExpiryDate;
-                _db.SaveChanges();
-                return RedirectToAction("MedicineView");
+                if (collection.SellingPrice <= collection.PurchasePrice)
+                {
+                    TempData["msg"] = "<script>alert('Stock can not updated');</script>";
+                    return RedirectToAction("EditStock/"+ id);
+                }
+                else
+                {
+                    Stock s = _db.Stocks.Find(id);
+                    s.Name = collection.Name;
+                    s.Category = collection.Category;
+                    s.PurchasePrice = collection.PurchasePrice;
+                    s.SellingPrice = collection.SellingPrice;
+                    s.Quantity = collection.Quantity;
+                    s.ExpiryDate = collection.ExpiryDate;
+                    _db.SaveChanges();
+
+                    TempData["msg"] = "<script>alert('Stock updated successfully');</script>";
+                    return RedirectToAction("MedicineView");
+                }
             }
             catch
             {
-                return PartialView("_editStock");
+                TempData["msg"] = "<script>alert('Stock can not updated');</script>";
+                //   return PartialView("_editStock");
+                return RedirectToAction("EditStock/" + id);
             }
         }
 
@@ -265,14 +422,50 @@ namespace PharmacyManagementSystem.Controllers
         {
             try
             {
-               Stock s = _db.Stocks.Find(id);
-                s.Quantity = collection.Quantity;
-                _db.SaveChanges();
-                return RedirectToAction("MedicineView");
+                    Stock s = _db.Stocks.Find(id);
+                    s.Quantity = collection.Quantity;
+                    _db.SaveChanges();
+                    TempData["msg"] = "<script>alert('Stock Quantity updated successfully');</script>";
+                    return RedirectToAction("MedicineView");
+                
             }
             catch
             {
-                return PartialView("_loadQuantity");
+                TempData["msg"] = "<script>alert('Stock Quantity can not updated');</script>";
+                return RedirectToAction("EditQuantity/" + id);
+            }
+        }
+
+
+        [Authorize(Roles = "Admin")]
+
+        public ActionResult EditQuantity(string id)
+        {
+            Stock selectedMedicine = _db.Stocks.Find(id);
+
+            return View(selectedMedicine);
+        }
+
+        // POST: Stock/EditQuantity/5
+        [HttpPost]
+        public ActionResult EditQuantity(string id, Stock collection)
+        {
+            try
+            {
+               
+                    Stock s = _db.Stocks.Find(id);
+                    s.Quantity = collection.Quantity;
+                    _db.SaveChanges();
+                    TempData["msg"] = "<script>alert('Stock Quantity updated successfully');</script>";
+
+                    return RedirectToAction("MedicineView");
+                
+            }
+            catch
+            {
+                TempData["msg"] = "<script>alert('Stock Quantity can not updated');</script>";
+
+                return View();
             }
         }
 

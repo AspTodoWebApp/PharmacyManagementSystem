@@ -27,6 +27,18 @@ namespace PharmacyManagementSystem.Controllers
         //autocomplete
         public JsonResult GetSearchValue(string search)
         {
+            //List<Stock> uniqueList = new List<Stock>();
+            //foreach(Stock obj in _db.Stocks)
+            //{
+            //    foreach(Stock ad in uniqueList)
+            //    {
+            //        if (ad.Name != obj.Name)
+            //        {
+            //            uniqueList.Add(obj);
+            //        }
+            //    }
+            //}
+
 
             List<Stock> allsearch = _db.Stocks.Where(x => x.Name.StartsWith(search)).ToList();
             return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -288,6 +300,31 @@ namespace PharmacyManagementSystem.Controllers
             {
                 var nameexits = _db.PlaceOrders.Where(x =>x.OrderId > _db.AllSales.Max(sale=>sale.OrderId) && x.Name == Name && x.Category==Category).ToList();
                 if (nameexits.Count() > 0)
+                {
+                    UserExists = true;
+                }
+                else
+                {
+                    UserExists = false;
+                }
+                return Json(!UserExists, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        
+             public JsonResult CheckQuantityExists(string Name, string Category,int Quantity)
+        {
+            bool UserExists = false;
+            try
+            {
+                var validQuantity = _db.Stocks.Where(x => x.Name == Name && x.Category == Category).First();
+
+                if (validQuantity.Quantity < Quantity)
                 {
                     UserExists = true;
                 }

@@ -4,47 +4,12 @@
     ViewBag.Title = "ShowBill";
 }
 
-<h2>ShowBill</h2>
 
-<div>
-    <h4>CreateBill</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SubTotal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SubTotal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Discount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Discount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GrandTotal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GrandTotal)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 <div id="CustomerBill" style="align-content:center">
     <h1>Pharmacy Management System</h1>
     <p>Customer Receipt</p>
-    <table class="table table-bordered">
+    <table class="table table-bordered" style="margin-bottom:20px">
         <thead>
         <tr>
             <th>Name</th>

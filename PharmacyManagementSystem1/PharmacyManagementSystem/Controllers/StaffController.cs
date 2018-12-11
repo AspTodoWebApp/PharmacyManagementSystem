@@ -57,8 +57,7 @@ namespace PharmacyManagementSystem.Controllers
         {
             try
             {
-
-                Staff st = new Staff();
+            Staff st = new Staff();
                 st.Name = s.Name;
                 st.Username = s.Username;
                 st.Email = s.Email;
@@ -75,38 +74,40 @@ namespace PharmacyManagementSystem.Controllers
                    client.UseDefaultCredentials = false;
                    client.Credentials = new NetworkCredential("numanuet311@gmail.com", "47841271");
                    MailMessage msg = new MailMessage();
-                   msg.To.Add("afshanarsha2783@gmail.com");
+                   msg.To.Add(s.Email);
                    msg.From = new MailAddress("numanuet311@gmail.com");
                    msg.Subject = "Staff added by admin";
-                   msg.Body = random;
+                   msg.Body = "You have registered as staff in pharmacy system your login ID is : "+s.Username+" and password is : "+random;
                    client.Send(msg);
                 //     random = "Numan311@";
-                 var hasher = new PasswordHasher();
-                     AspNetUser staff = new AspNetUser();
-                   staff.Id = Guid.NewGuid().ToString();
-                     staff.Email = s.Username;
-                   staff.EmailConfirmed = false;
-                   staff.TwoFactorEnabled = false;
-                   staff.LockoutEnabled = true;
-                   staff.AccountUserName = s.Name;
-                   staff.AccessFailedCount = 0;
-                   staff.GmailAccount = s.Email;
-                     staff.SecurityStamp =Guid.NewGuid().ToString();
-                   staff.PasswordHash = hasher.HashPassword(random);
-                       staff.UserName = s.Username;
-                   _db.AspNetUsers.Add(staff);
+                  var hasher = new PasswordHasher();
+                       AspNetUser staff = new AspNetUser();
+                     staff.Id = Guid.NewGuid().ToString();
+                       staff.Email = s.Username;
+                     staff.EmailConfirmed = false;
+                staff.PhoneNumberConfirmed = false;
+                     staff.TwoFactorEnabled = false;
+                     staff.LockoutEnabled = true;
+                     staff.AccountUserName = s.Name;
+                     staff.AccessFailedCount = 0;
+                     staff.GmailAccount = s.Email;
+                       staff.SecurityStamp =Guid.NewGuid().ToString();
+                     staff.PasswordHash = hasher.HashPassword(random);
+                         staff.UserName = s.Username;
+                     _db.AspNetUsers.Add(staff);
 
-              /*  AspNetRole staffRole = new AspNetRole();
-                staffRole.Id = Guid.NewGuid().ToString();
-                staffRole.Name = "Staff";
-                staffRole.Discriminator = "ApplicationRole";
-                _db.AspNetRoles.Add(staffRole);*/
+                /*  AspNetRole staffRole = new AspNetRole();
+                  staffRole.Id = Guid.NewGuid().ToString();
+                  staffRole.Name = "Staff";
+                  staffRole.Discriminator = "ApplicationRole";
+                  _db.AspNetRoles.Add(staffRole);*/
 
-                AspNetUserRole assignRole = new AspNetUserRole();
-                assignRole.AssignRoleId = Guid.NewGuid().ToString();
-                assignRole.RoleId = _db.AspNetRoles.Where(role => role.Name == "Staff").FirstOrDefault().Id;
-                assignRole.UserId = staff.Id;
-                _db.AspNetUserRoles.Add(assignRole);
+                   AspNetUserRole assignRole = new AspNetUserRole();
+                    assignRole.AssignRoleId = Guid.NewGuid().ToString();
+                    assignRole.RoleId = _db.AspNetRoles.Where(role => role.Name == "Staff").FirstOrDefault().Id;
+                    assignRole.UserId = staff.Id;
+                    _db.AspNetUserRoles.Add(assignRole);
+
                 _db.SaveChanges();
 
 
@@ -116,7 +117,7 @@ namespace PharmacyManagementSystem.Controllers
 
                 return RedirectToAction("Index");
 
-        }
+            }
             catch
             {
                 return RedirectToAction("Create");
@@ -233,9 +234,20 @@ namespace PharmacyManagementSystem.Controllers
         }
 
         // GET: Staff/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
+        public ActionResult Delete(string id)
+        {//remove from staff table
+         // string Id = id + "@gmail.com";
+
+            Staff selectedStaff = _db.Staffs.Find(id);
+            _db.Staffs.Remove(selectedStaff);
+
+            //remove staff role and login 
+            AspNetUser user = _db.AspNetUsers.Where(obj => obj.GmailAccount == selectedStaff.Email).First();
+            AspNetUserRole userRole= _db.AspNetUserRoles.Where(obj => obj.UserId == user.Id).First();
+           _db.AspNetUsers.Remove(user);
+            _db.AspNetUserRoles.Remove(userRole);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: Staff/Delete/5

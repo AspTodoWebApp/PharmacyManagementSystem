@@ -12,7 +12,7 @@
             Add Medicine
         </div>
     </div>
-
+<div>@Html.Raw(TempData["msg"])</div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

@@ -381,6 +381,7 @@
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
+        <div>@Html.Raw(TempData["msg"])</div>
     <div class="limiter">
         <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
             <div class="wrap-login100">
@@ -420,6 +421,7 @@
                             Login
                         </button>
                     </div>
+                    
                     <div class="text-white text-center" style="margin-top:20px">Don't have account ? <span class="margin-left:15px">@Html.ActionLink("SignUP", "Register",null ,new { @class = "text-white" })</span></div>
 
                   

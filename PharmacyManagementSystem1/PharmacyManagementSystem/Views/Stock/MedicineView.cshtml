@@ -11,12 +11,12 @@
 
     <div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
         <div class="panel-heading">
-            <div>@Html.Raw(TempData["msg"])</div>
+            
             <i class="fa fa-medkit"></i>
             Medicines
         </div>
     </div>
-
+    <div>@Html.Raw(TempData["msg"])</div>
 
     @if (Context.User.IsInRole("Admin"))
     {

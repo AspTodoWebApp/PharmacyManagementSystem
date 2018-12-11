@@ -20,7 +20,8 @@
 @*<div class="flip-square-loader"></div>*@
 
 @*outside card*@
-
+@if (Context.User.IsInRole("Admin"))
+{
 <div class="row" style="margin-top:20px;margin-left:10px">
     <div class="col-lg-3 col-sm-6">
         <a href="/Finance/SaleToday" role="button">
@@ -56,7 +57,7 @@
 
 
     <div class="col-lg-3 col-sm-6 ">
-        <a href="/Stock/Index" role="button">
+        <a href="/Stock/MedicineView" role="button">
             <div class="row">
                 <div class="col-sm-5" style="background-color:blue;text-align:center;padding:30px">
                     <i class="fa fa-medkit" style="color:white;font-size:45px"></i>
@@ -71,8 +72,9 @@
         </a>
     </div>
 
+ 
     <div class="col-lg-3 col-sm-6 ">
-        <a href="/Stock/Index" role="button">
+        <a href="/Finance/Index" role="button">
             <div class="row">
                 <div class="col-sm-5" style="background-color:blue;text-align:center;padding:30px">
                     <i class="fa fa-user" style="color:white;font-size:45px"></i>
@@ -86,7 +88,63 @@
             </div>
         </a>
     </div>
-</div>
+</div>}
+else if (Context.User.IsInRole("Staff"))
+{
+    <div class="row" style="margin-top:20px;margin-left:10px">
+        <div class="col-lg-4 col-sm-6">
+            <a href="/Finance/SaleToday" role="button">
+                <div class="row">
+                    <div class="col-sm-5" style="background-color:green;text-align:center;padding:25px">
+
+                        <span class="glyphicon glyphicon-plus" style="color:white;font-size:45px"></span>
+                    </div>
+                    <div class="col-sm-6" style="text-align:center;background-color:white;font-size:15px;padding:31px 0px 31px 0px">
+                        <div class="row">
+                            <div class="col-lg-12">Sale Today</div><div class="col-lg-12">PKR @Model.SalesToday</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <a href="/Finance/ExpenseToday" role="button">
+                <div class="row">
+                    <div class="col-sm-5" style="background-color:blue;text-align:center;padding:25px">
+
+                        <span class="glyphicon glyphicon-minus" style="color:white;font-size:45px"></span>
+                    </div>
+                    <div class="col-sm-6" style="text-align:center;background-color:white;font-size:15px;padding:31px 0px 31px 0px">
+                        <div class="row">
+                            <div class="col-lg-12">Expense Today</div><div class="col-lg-12">PKR @Model.ExpeneseToday</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="col-lg-4 col-sm-6 ">
+            <a href="/Stock/MedicineView" role="button">
+                <div class="row">
+                    <div class="col-sm-5" style="background-color:blue;text-align:center;padding:30px">
+                        <i class="fa fa-medkit" style="color:white;font-size:45px"></i>
+
+                    </div>
+                    <div class="col-sm-6" style="text-align:center;background-color:white;font-size:15px;padding:31px 0px 31px 0px">
+                        <div class="row">
+                            <div class="col-lg-12">Medicine</div><div class="col-lg-12">@Model.CountStock</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+      
+    </div>
+}
 
 <div class="row" style="margin:20px 0px 0px 0px">
 

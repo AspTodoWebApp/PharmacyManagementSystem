@@ -438,6 +438,7 @@
       <DependentUpon>PharmacyDb.edmx</DependentUpon>
       <LastGenOutput>PharmacyDb.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\autocomplete-jquery.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="LoginUI\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
@@ -1143,6 +1144,8 @@
     <Content Include="Views\Stock\MedicineView.cshtml" />
     <Content Include="Views\Stock\AddMedicine.cshtml" />
     <Content Include="Views\Stock\_addStock.cshtml" />
+    <Content Include="Views\Stock\EditStock.cshtml" />
+    <Content Include="Views\Stock\EditQuantity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

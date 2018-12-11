@@ -330,9 +330,10 @@
                         <div class="collapse" id="med">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineView">Medicine List</a></li>
+@if (Context.User.IsInRole("Admin")) { 
                                 <li class="nav-item"> <a class="nav-link" href="/Stock/AddMedicine">Add Medicine</a></li>
                                @* <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineCategory">Medicine Category</a></li>*@
-                                <li class="nav-item"> <a class="nav-link" href="/Stock/AddNewCategory">Add New Category</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/Stock/AddNewCategory">Add New Category</a></li>}
 
                             </ul>
                         </div>
@@ -355,8 +356,9 @@
                     </li>
                     <li class="nav-item"> <a class="nav-link" href="/Stock/StockAlert"> <i class="fa  fa-medkit"></i>  <span class="menu-title" style="margin-left:20px">Stock Alert</span></a> </li>
                     <li class="nav-item"> <a class="nav-link" href="/Stock/ExpiryAlert"> <i class="fa  fa-medkit"></i>  <span class="menu-title" style="margin-left:20px">ExpiryAlert</span></a> </li>
-
-                    <li class="nav-item"> <a class="nav-link" href="/Staff/Index"><i class="fa  fa-user"></i>  <span class="menu-title" style="margin-left:20px">Staff</span></a> </li>
+@if (Context.User.IsInRole("Admin"))
+{
+                    <li class="nav-item"> <a class="nav-link" href="/Staff/Index"><i class="fa  fa-user"></i>  <span class="menu-title" style="margin-left:20px">Staff</span></a> </li>}
 
                     @*link end*@
                 </ul>
@@ -397,9 +399,11 @@ else
 {
 
     <div class="loader"></div>
-    @RenderBody()
-       
-   }
+   
+        @RenderBody()
+
+
+}
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="~/vendors/js/vendor.bundle.base.js"></script>

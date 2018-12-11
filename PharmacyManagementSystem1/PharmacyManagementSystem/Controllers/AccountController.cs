@@ -17,7 +17,7 @@ using System.Web.Security;
 namespace PharmacyManagementSystem.Controllers
 {
     [Authorize]
-
+    
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -251,8 +251,33 @@ namespace PharmacyManagementSystem.Controllers
             {//as login take username so we store email in username
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,AccountUserName=model.Username,GmailAccount=model.GmailAccount };
                 var result = await UserManager.CreateAsync(user, model.Password);
-              var role = new ApplicationRole() { Name = "Staff" };
-                await RoleManager.CreateAsync(role);
+
+                if (_db.AspNetRoles.Count() == 0)
+                {
+                    var role = new ApplicationRole() { Name = "Admin" };
+                    await RoleManager.CreateAsync(role);
+                    var staffrole = new ApplicationRole() { Name = "Staff" };
+                    await RoleManager.CreateAsync(staffrole);
+                }
+
+                /*gmail verification*/
+            /*    var group = new VerificationGroup();
+
+                // Add some entries to the verification group
+
+                group += new Verification("alice@example.com");
+                group += new Verification("bob@example.net");
+
+                // One entry also has non-default settings
+
+                group += new Verification("charlie@example.org", new VerificationSettings
+                {
+                    AllowInternationalDomainNames = false
+                });
+
+                // Start the validation of the whole group, asynchronously
+
+                await engine.RunAsync(group, VerificationLevel.Smtp);*/
 
                 if (result.Succeeded)
                 {
@@ -317,7 +342,8 @@ namespace PharmacyManagementSystem.Controllers
                 //   {
 
                 // Don't reveal that the user does not exist or is not confirmed
-                try {
+                try
+                {
                     string random = GetRandomString(5);
                     SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                     client.EnableSsl = true;
@@ -332,37 +358,32 @@ namespace PharmacyManagementSystem.Controllers
                     msg.Body = random;
                     client.Send(msg);
 
-
-                    var hashPassword = new PasswordHasher();
+                   var hashPassword = new PasswordHasher();
                     AspNetUser resetPassword = _db.AspNetUsers.Where(x => x.GmailAccount == model.GmailAccount).FirstOrDefault();
                     resetPassword.PasswordHash = hashPassword.HashPassword(random);
                     _db.SaveChanges();
                     TempData["msg"] = "<script>alert('Email Send successfully');</script>";
-                    return View();
-
-                }
+                    return RedirectToAction("Login");
+            }
                 catch (Exception)
-                {
-                    TempData["msg"] = "<script>alert('Invalid Email');</script>";
-                }
-               
-                //    return View("ForgotPasswordConfirmation");
-                return View("Login");
-              //  }
-
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            {
+                TempData["msg"] = "<script>alert('Invalid Email');</script>";
+                return View();
             }
 
+            //    return View("ForgotPasswordConfirmation");
 
+            //  }  
 
+            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+            // Send an email with this link
+            // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+            // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+        }
 
-
-            // If we got this far, something failed, redisplay form
+    // If we got this far, something failed, redisplay form
             return View(model);
         }
 
