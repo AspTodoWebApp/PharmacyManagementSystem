@@ -58,6 +58,7 @@ namespace PharmacyManagementSystem.Controllers
             try
             {
             Staff st = new Staff();
+                st.Id = Guid.NewGuid().ToString();
                 st.Name = s.Name;
                 st.Username = s.Username;
                 st.Email = s.Email;

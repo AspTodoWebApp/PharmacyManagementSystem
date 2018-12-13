@@ -26,6 +26,7 @@ namespace PharmacyManagementSystem.Controllers
             catch { dashboard.ExpeneseToday = 0; }
 
             dashboard.CountStock = _db.Stocks.Count();
+
             dashboard.CountStaff = _db.Staffs.Count();
             dashboard.CountSales = _db.AllSales.Count();
 
