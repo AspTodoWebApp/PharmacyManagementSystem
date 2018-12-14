@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using PharmacyManagementSystem.Models;
 namespace PharmacyManagementSystem.Controllers
 {[Authorize]
-    public class DashboardController : ApplicationBaseController // Controller
+    public class DashboardController : ApplicationBaseController 
     {
         PharmacyDBEntities4 _db;
         public DashboardController()

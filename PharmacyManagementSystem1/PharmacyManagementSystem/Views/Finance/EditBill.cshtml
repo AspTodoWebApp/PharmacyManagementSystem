@@ -47,10 +47,10 @@
                                     <th>Options</th>
                                 </tr>
                             </thead>
-                           
-                                <tbody>
-                         @foreach (var item in Model)
-                         {
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
                                     <tr>
 
                                         <td>
@@ -74,9 +74,7 @@
                                             @Html.DisplayFor(modelItem => item.OrderDate)
                                         </td>
                                         <td>
-                                          @*  @Html.ActionLink("Edit", "editsale", new { id = item.SerialNumber }) |
 
-                                            @Html.ActionLink("Delete", "DeleteOrder", new { id=item.SerialNumber  })*@
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-lg-12">
@@ -95,11 +93,11 @@
                                                     </div>
 
                                                 </div>
-                                            </div> 
+                                            </div>
                                         </td>
                                     </tr>}
-                                </tbody>
-                            
+                            </tbody>
+
 
                         </table>
                     </div>
@@ -107,11 +105,11 @@
             </div>
         </div>
 
-       
-                <input type="submit" value="Save Changes" class="btn btn-success" style="margin-top:10px;color:white;box-shadow:2px 2px 5px grey"/>
+
+        <input type="submit" value="Save Changes" class="btn btn-success" style="margin-top:10px;color:white;box-shadow:2px 2px 5px grey" />
 
 
-          
+
     </div>
 
 }

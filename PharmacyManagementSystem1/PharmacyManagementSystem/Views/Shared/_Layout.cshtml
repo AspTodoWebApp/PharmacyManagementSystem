@@ -6,14 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-  @* <link href="~/Content/Customize.css" rel="stylesheet" id="bootstrap-css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
-    @*sidebar updated*@
 
- 
-    
-   
+    @*sidebar updated*@
     <link rel="stylesheet" href="~/vendors/iconfonts/mdi/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="~/vendors/iconfonts/puse-icons-feather/feather.css" />
     <link rel="stylesheet" href="~/vendors/css/vendor.bundle.base.css" />
@@ -29,7 +23,7 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="~/images/favicon.png" />
 
- 
+
     @*sidebar updated*@
 </head>
 
@@ -37,69 +31,63 @@
     @*loader script*@
     <script src="~/js/Loaderjquery.js"></script>
     <script language="javascript">
-
-
-          //  $('document').ready(function(e) {
-
-        $(window).load(function (e) {
+ $(window).load(function (e) {
             $(".loader").fadeOut("slow");
         });
 
 
-    </script> 
-    
-@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated && ViewData.ContainsKey("FullName") && ViewData.ContainsKey("MedicineAddToday"))
-{
+    </script>
+
+    @using Microsoft.AspNet.Identity
+    @if (Request.IsAuthenticated && ViewData.ContainsKey("FullName") && ViewData.ContainsKey("MedicineAddToday"))
+    {
 
 
-    <div class="container-scroller">
-        <!-- partial:../../partials/_navbar.html -->
-        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row ">
-            <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-                @*<a class="navbar-brand brand-logo" href="http://www.urbanui.com/radiant/jquery/index.html"></a>
-               <a class="navbar-brand brand-logo-mini" href="http://www.urbanui.com/radiant/jquery/index.html"></a>
-                <a class="navbar-brand brand-logo-mini" href="http://www.urbanui.com/radiant/jquery/index.html"></a>*@
-              <h2 style="font-size:40px;margin-top:10px"><a class="nav-item"><span class="menu-title" style="color:white"><i class="fa fa-medkit">    P.M.S</i></span></a></h2>
-            </div>
-            
-            <div class="navbar-menu-wrapper d-flex align-items-center">
-                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                    <span class="mdi mdi-menu"></span>
-                </button>
-                <ul class="navbar-nav navbar-nav-left">
-                   
-                    <li class="nav-item dropdown e" >
-                        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-money"></i>
-                            <span class="count bg-success">@ViewData["SaleToday"] </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list align-content-center" aria-labelledby="messageDropdown">
-                            <div class="dropdown-item py-3 text-white" style="background-color:darkcyan;margin-right:20px">
-                                
-                                   @ViewData["SaleToday"]  sales today
-                              
+        <div class="container-scroller">
+            <!-- partial:../../partials/_navbar.html -->
+            <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row ">
+                <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+                    <h2 style="font-size:40px;margin-top:10px"><a class="nav-item"><span class="menu-title" style="color:white"><i class="fa fa-medkit">    P.M.S</i></span></a></h2>
+                </div>
+
+                <div class="navbar-menu-wrapper d-flex align-items-center">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+                    <ul class="navbar-nav navbar-nav-left">
+
+                        <li class="nav-item dropdown e">
+                            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-money"></i>
+                                <span class="count bg-success">@ViewData["SaleToday"] </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list align-content-center" aria-labelledby="messageDropdown">
+                                <div class="dropdown-item py-3 text-white" style="background-color:darkcyan;margin-right:20px">
+
+                                    @ViewData["SaleToday"]  sales today
+
+
+                                </div>
+
+                                <a class="dropdown-item preview-item text-center bg-success text-white align-self-center" style="margin:auto;width:80%;margin-top:10px" href="/Finance/Index">
+                                    View All Sales
+                                </a>
+
 
                             </div>
-
-                            <a class="dropdown-item preview-item text-center bg-success text-white align-self-center" style="margin:auto;width:80%;margin-top:10px" href="/Finance/Index">
-                                View All Sales
-                            </a>
-
-
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-medkit"></i>
-                            <span class="count bg-success">@ViewData["MedicineAddToday"]
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-medkit"></i>
+                                <span class="count bg-success">
+                                    @ViewData["MedicineAddToday"]
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-left navbar-dropdown preview-list align-content-center" aria-labelledby="messageDropdown">
                             <div class="dropdown-item py-3 text-white" style="background-color:darkcyan;margin-right:20px">
 
-                            @ViewData["MedicineAddToday"] Medicine Added Today
-                           
+                                @ViewData["MedicineAddToday"] Medicine Added Today
+
 
                             </div>
 
@@ -110,224 +98,71 @@
 
                         </div>
                     </li>
-
-                    @*apply inside dropdown-item py-3 <div class="preview-thumbnail">
-        <img src="../../images/faces/face4.jpg" alt="image" class="profile-pic">
-    </div>
-    <div class="preview-item-content flex-grow">
-        <h6 class="preview-subject ellipsis font-weight-normal text-dark mb-1">
-            David Grey
-            <span class="float-right font-weight-light small-text text-gray">1 Minutes ago</span>
-        </h6>
-        <p class="font-weight-light small-text mb-0">
-            The meeting is cancelled
-        </p>
-    </div>*@
-
-
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
-                    
-                    @*<li class="nav-item dropdown">
-                        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                            <i class="mdi mdi-bell-outline"></i>
-                            <span class="count bg-success">4</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <a class="dropdown-item py-3">
-                                <p class="mb-0 font-weight-medium float-left">
-                                    You have 4 new notifications
-                                </p>
-                                <span class="badge badge-pill badge-inverse-info float-right">View all</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-inverse-success">
-                                        <i class="mdi mdi-alert-circle-outline mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
-                                    <p class="font-weight-light small-text mb-0">
-                                        Just now
-                                    </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-inverse-warning">
-                                        <i class="mdi mdi-comment-text-outline mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
-                                    <p class="font-weight-light small-text mb-0">
-                                        Private message
-                                    </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-inverse-info">
-                                        <i class="mdi mdi-email-outline mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
-                                    <p class="font-weight-light small-text mb-0">
-                                        2 days ago
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>*@
-                  
-                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <span class="mr-3"><i class="fa fa-user-md"></i>  @ViewData["FullName"]
+                            <span class="mr-3">
+                                <i class="fa fa-user-md"></i>  @ViewData["FullName"]
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                          
-                           <a class="dropdown-item" href="/Manage/ChangePassword">
+
+                            <a class="dropdown-item" href="/Manage/ChangePassword">
                                 Change Password
                             </a>
-                          
+
                             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { role = "form" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <input type="submit" value="Logout" class="dropdown-item" />
-                                 
-                                        }
-                                    
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Logout" class="dropdown-item" />
+
+                            }
+
                         </div>
                     </li>
                 </ul>
-                
+
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                     <span class="icon-menu"></span>
                 </button>
             </div>
         </nav>
-      
+
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
 
             <!-- partial:../../partials/_settings-panel.html -->
-        @*    <div class="theme-setting-wrapper">
-                <div id="theme-settings" class="settings-panel">
-                    <i class="settings-close mdi mdi-close"></i>
-                    <div class="d-flex align-items-center justify-content-between border-bottom">
-                        <p class="settings-heading font-weight-bold border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Template Skins</p>
-                    </div>
-                    <div class="sidebar-bg-options selected" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
-                    <div class="sidebar-bg-options" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
-                    <p class="settings-heading font-weight-bold mt-2">Header Skins</p>
-                    <div class="color-tiles mx-0 px-4">
-                        <div class="tiles primary"></div>
-                        <div class="tiles success"></div>
-                        <div class="tiles warning"></div>
-                        <div class="tiles danger"></div>
-                        <div class="tiles pink"></div>
-                        <div class="tiles info"></div>
-                        <div class="tiles dark"></div>
-                        <div class="tiles default"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="right-sidebar" class="settings-panel">
-                <i class="settings-close mdi mdi-close"></i>
-                <div class="d-flex align-items-center justify-content-between border-bottom">
-                    <p class="settings-heading font-weight-bold border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-                </div>
-                <ul class="chat-list">
-                    <li class="list active">
-                        <div class="profile"><img src="../../images/faces/face1.jpg" alt="image"><span class="online"></span></div>
-                        <div class="info">
-                            <p>Thomas Douglas</p>
-                            <p>Available</p>
-                        </div>
-                        <small class="text-muted my-auto">19 min</small>
-                    </li>
-                    <li class="list">
-                        <div class="profile"><img src="../../images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
-                        <div class="info">
-                            <div class="wrapper d-flex">
-                                <p>Catherine</p>
-                            </div>
-                            <p>Away</p>
-                        </div>
-                        <div class="badge badge-success badge-pill my-auto mx-2">4</div>
-                        <small class="text-muted my-auto">23 min</small>
-                    </li>
-                    <li class="list">
-                        <div class="profile"><img src="../../images/faces/face3.jpg" alt="image"><span class="online"></span></div>
-                        <div class="info">
-                            <p>Daniel Russell</p>
-                            <p>Available</p>
-                        </div>
-                        <small class="text-muted my-auto">14 min</small>
-                    </li>
-                    <li class="list">
-                        <div class="profile"><img src="../../images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
-                        <div class="info">
-                            <p>James Richardson</p>
-                            <p>Away</p>
-                        </div>
-                        <small class="text-muted my-auto">2 min</small>
-                    </li>
-                    <li class="list">
-                        <div class="profile"><img src="../../images/faces/face5.jpg" alt="image"><span class="online"></span></div>
-                        <div class="info">
-                            <p>Madeline Kennedy</p>
-                            <p>Available</p>
-                        </div>
-                        <small class="text-muted my-auto">5 min</small>
-                    </li>
-                    <li class="list">
-                        <div class="profile"><img src="../../images/faces/face6.jpg" alt="image"><span class="online"></span></div>
-                        <div class="info">
-                            <p>Sarah Graves</p>
-                            <p>Available</p>
-                        </div>
-                        <small class="text-muted my-auto">47 min</small>
-                    </li>
-                </ul>
-            </div>  *@
             <!-- partial -->
             <!-- partial:../../partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                   
+
 
                     @*related navigation link start*@
                     <li class="nav-item"> <a class="nav-link" href="/Dashboard/Index"> <i class="fa  fa-tachometer"></i>  <span class="menu-title" style="margin-left:20px">Dashboard</span></a> </li>
-                   
+
                     <li class="nav-item"> <a class="nav-link" href="/Finance/Create"> <i class="fa  fa-money"></i>  <span class="menu-title" style="margin-left:20px">POS</span></a> </li>
-              
 
-@if (Context.User.IsInRole("Admin"))
-{
-                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#med" aria-expanded="false" aria-controls="med"><i class="fa  fa-medkit"></i>  <span class="menu-title" style="margin-left:20px">Medicine</span><i class="menu-arrow"></i></a>
-                        <div class="collapse" id="med">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineView">Medicine List</a></li>
 
-                                <li class="nav-item"> <a class="nav-link" href="/Stock/AddMedicine">Add Medicine</a></li>
-                               @* <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineCategory">Medicine Category</a></li>*@
-                                <li class="nav-item"> <a class="nav-link" href="/Stock/AddNewCategory">Add New Category</a></li>
+                    @if (Context.User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#med" aria-expanded="false" aria-controls="med"><i class="fa  fa-medkit"></i>  <span class="menu-title" style="margin-left:20px">Medicine</span><i class="menu-arrow"></i></a>
+                            <div class="collapse" id="med">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineView">Medicine List</a></li>
 
-                            </ul>
-                        </div>
-                    </li>
-}
-                  else if (Context.User.IsInRole("Staff"))
-                {
+                                    <li class="nav-item"> <a class="nav-link" href="/Stock/AddMedicine">Add Medicine</a></li>
+                                    @* <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineCategory">Medicine Category</a></li>*@
+                                    <li class="nav-item"> <a class="nav-link" href="/Stock/AddNewCategory">Add New Category</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                    else if (Context.User.IsInRole("Staff"))
+                    {
                         <li class="nav-item"> <a class="nav-link" href="/Stock/MedicineView"> <i class="fa  fa-medkit"></i>  <span class="menu-title" style="margin-left:20px">Medicines</span></a> </li>
                     }
 
@@ -339,7 +174,7 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/Finance/ViewExpenses">Expense</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="/Finance/AddExpenses">Add Expense</a></li>
-                             
+
                                 <li class="nav-item"> <a class="nav-link" href="/Finance/AddExpenseCategory">Expense Category</a></li>
 
                             </ul>
@@ -347,9 +182,9 @@
                     </li>
                     <li class="nav-item"> <a class="nav-link" href="/Stock/StockAlert"> <i class="fa  fa-medkit"></i>  <span class="menu-title" style="margin-left:20px">Stock Alert</span></a> </li>
                     <li class="nav-item"> <a class="nav-link" href="/Stock/ExpiryAlert"> <i class="fa  fa-medkit"></i>  <span class="menu-title" style="margin-left:20px">ExpiryAlert</span></a> </li>
-@if (Context.User.IsInRole("Admin"))
-{
-                    <li class="nav-item"> <a class="nav-link" href="/Staff/Index"><i class="fa  fa-user"></i>  <span class="menu-title" style="margin-left:20px">Staff</span></a> </li>}
+                    @if (Context.User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item"> <a class="nav-link" href="/Staff/Index"><i class="fa  fa-user"></i>  <span class="menu-title" style="margin-left:20px">Staff</span></a> </li>}
 
                     @*link end*@
                 </ul>
@@ -357,14 +192,14 @@
 
 
             <!-- partial -->
-       <div class="main-panel">
-          
+            <div class="main-panel">
 
-           <div class="loader"></div>
-                           <div class="content-wrapper">
-           @RenderBody()
-   
-    </div>
+
+                <div class="loader"></div>
+                <div class="content-wrapper">
+                    @RenderBody()
+
+                </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:../../partials/_footer.html -->
 
@@ -373,28 +208,28 @@
                 <footer class="footer">
                     <div class="container-fluid clearfix">
                         <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018 <a href="http://www.urbanui.com/" target="_blank">Pharmacy Management System</a>. All rights reserved.</span>
-                      
+
                     </div>
                 </footer>
 
 
 
                 <!-- partial -->
-            </div> 
+            </div>
             <!-- main-panel ends -->
         </div>
         <!-- page-body-wrapper ends -->
     </div>
-}
-else
-{
+    }
+    else
+    {
 
-    <div class="loader"></div>
-   
+        <div class="loader"></div>
+
         @RenderBody()
 
 
-}
+    }
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="~/vendors/js/vendor.bundle.base.js"></script>
@@ -412,24 +247,22 @@ else
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="~/js/light-gallery.js"></script>
-   
+
     <script src="~/js/dashboard.js"></script>
     <!---For table -->
     <script src="~/js/data-table.js"></script>
     <!-- End custom js for this page-->
     <script src="~/js/modal-demo.js"></script>
-   
+
     <!-- Custom js for this page-->
-   
-@*sidebar end template body*@
+    @*sidebar end template body*@
 
 
 
-    
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
-

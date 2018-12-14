@@ -16,12 +16,7 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-@*Name instead of searchInput*@
 
-@*<div class="form-group">
-
-        @Html.DropDownListFor(model => model.Category, new SelectList(" "), "--Select State--", new { @class = "form-control" })
-    </div>*@
 @*autocomplete end *@
 
 @using (Html.BeginForm())
@@ -74,10 +69,6 @@
         </div>
     </div>
 
-    @*   <div class="card">
-        <div class="card-body">
-
-            <div class="row">*@
     <div class="col-lg-12">
         <table class="table table-bordered table-hover bg-white" style="text-align:center">
             <thead class="bg-primary text-white">
@@ -118,10 +109,6 @@
 
                         <td>
 
-
-                            @* <button type="button" class="btn btn-success btn-xs">
-                                    <span class="glyphicon glyphicon-edit"></span> Edit
-                                </button>*@
                             @Html.ActionLink("Edit", "Edit", new { id = item.SerialNumber },
                       new { @class = "btn btn-success" })
 
@@ -135,9 +122,9 @@
 
         </table>
     </div>
-                    @* </div>ShowBill
-                            </div>
-                        </div>*@
+    @* </div>ShowBill
+            </div>
+        </div>*@
 if (Model.orderList.Count > 0)
 {
     <div class="col-md-offset-2 col-md-10" style="margin-top:10px">
@@ -227,21 +214,7 @@ else
         })
     });
     </script>
-    @*autcomplete method end script
-
-         <script>
-        function printContent(el) {
-            var restorePage = document.body.innerHTML;
-            var printcontent = document.getElementById(el).innerHTML;
-            document.body.innerHTML = printcontent;
-            window.print();
-            document.body.innerHTML = restorePage;
-        }
-
-
-                                function confirmDelete() {
-                                    confirm("Are u sure u want to selected delete medicine?")
-                                }</script>*@
+    @*autcomplete method end script*@
 
 }
 

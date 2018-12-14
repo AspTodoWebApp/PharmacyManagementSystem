@@ -3,53 +3,7 @@
 @{
     ViewBag.Title = "SaleToday";
 }
-@*
-    <h2>SaleToday</h2>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GrandTotal)
-            </th>
-            <th></th>
-        </tr>
-
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Discount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GrandTotal)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
-
-    </table>
-*@
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -110,10 +64,10 @@
                             <th>Options</th>
                         </tr>
                     </thead>
-                   
-                        <tbody>
-@foreach (var item in Model)
-{
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.OrderId)
@@ -135,7 +89,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
 
-                                               
+
 
                                                 <div role="button" class="btn btn-success btn-xs" style="color:white">
                                                     <span class="glyphicon glyphicon-edit"></span>
@@ -148,137 +102,139 @@
                                                     <span class="glyphicon glyphicon-trash"></span>
                                                     @Html.ActionLink("Delete", "DeleteOrder", new { id = item.OrderId },
                                       new { @class = "link-button", onclick = "return confirm('Are you sure you wish to delete this order?');", })
-                                                </div>                                            </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
 
 
-}
+                        }
 
-                        </tbody>
-                    
+                    </tbody>
+
 
                 </table>
             </div>
-            </div>
-        </div></div>
+        </div>
+    </div>
+</div>
 
-            @*<!-- add medicine button Modal -->
-                <div class="modal fade" id="addModalLong" tabindex="-1" role="dialog" aria-labelledby="addModalLongTitle" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header" style="background-color:darkcyan">
-                                <div class="container" style="font-size:20px;color:white">
-                                    <span class="glyphicon glyphicon-edit"></span>  Add Medicine
+@*<!-- add medicine button Modal -->
+    <div class="modal fade" id="addModalLong" tabindex="-1" role="dialog" aria-labelledby="addModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:darkcyan">
+                    <div class="container" style="font-size:20px;color:white">
+                        <span class="glyphicon glyphicon-edit"></span>  Add Medicine
 
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true" style="color:black">&times;</span>
-                                    </button>
-                                </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="color:black">&times;</span>
+                        </button>
+                    </div>
 
-                            </div>
-                            <div class="modal-body">
+                </div>
+                <div class="modal-body">
 
-                                <div class="row">
-                                    <div class="col-sm-12">Name</div>
-                                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                    <div class="col-sm-12">Category</div>
-                                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                    <div class="col-sm-12">Purchase Price</div>
-                                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                    <div class="col-sm-12">Selling Price</div>
-                                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                    <div class="col-sm-12">Quantity</div>
-                                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                    <div class="col-sm-12">Expiry Date</div>
-                                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                    <div class="row">
+                        <div class="col-sm-12">Name</div>
+                        <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                        <div class="col-sm-12">Category</div>
+                        <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                        <div class="col-sm-12">Purchase Price</div>
+                        <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                        <div class="col-sm-12">Selling Price</div>
+                        <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                        <div class="col-sm-12">Quantity</div>
+                        <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                        <div class="col-sm-12">Expiry Date</div>
+                        <div class="col-lg-12"><input type="text" style="width:100%" /></div>
 
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
-                <!-- Load button Modal -->
-                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header" style="background-color:darkcyan">
-                                <div class="container" style="font-size:20px;color:white">
-                                    <span class="glyphicon glyphicon-edit"></span>  Update Quantity
-
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true" style="color:black">&times;</span>
-                                    </button>
-                                </div>
-
-                            </div>
-                            <div class="modal-body">
-
-                                <div class="row">
-                                    <div class="col-sm-12">Add Quantity</div>
-                                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            *@
-            <!-- Edit button Modal -->
-            <div class="modal fade" id="editModalLong" tabindex="-1" role="dialog" aria-labelledby="editModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color:darkcyan">
-                            <div class="container" style="font-size:20px;color:white">
-                                <span class="glyphicon glyphicon-edit"></span>  Edit Medicine
-
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true" style="color:black">&times;</span>
-                                </button>
-                            </div>
-
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="row">
-                                <div class="col-sm-12">Name</div>
-                                <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                <div class="col-sm-12">Category</div>
-                                <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                <div class="col-sm-12">Purchase Price</div>
-                                <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                <div class="col-sm-12">Selling Price</div>
-                                <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                <div class="col-sm-12">Quantity</div>
-                                <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-                                <div class="col-sm-12">Expiry Date</div>
-                                <div class="col-lg-12"><input type="text" style="width:100%" /></div>
-
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Load button Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:darkcyan">
+                    <div class="container" style="font-size:20px;color:white">
+                        <span class="glyphicon glyphicon-edit"></span>  Update Quantity
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="color:black">&times;</span>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-12">Add Quantity</div>
+                        <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+*@
+<!-- Edit button Modal -->
+<div class="modal fade" id="editModalLong" tabindex="-1" role="dialog" aria-labelledby="editModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:darkcyan">
+                <div class="container" style="font-size:20px;color:white">
+                    <span class="glyphicon glyphicon-edit"></span>  Edit Medicine
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:black">&times;</span>
+                    </button>
+                </div>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-sm-12">Name</div>
+                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                    <div class="col-sm-12">Category</div>
+                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                    <div class="col-sm-12">Purchase Price</div>
+                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                    <div class="col-sm-12">Selling Price</div>
+                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                    <div class="col-sm-12">Quantity</div>
+                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+                    <div class="col-sm-12">Expiry Date</div>
+                    <div class="col-lg-12"><input type="text" style="width:100%" /></div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-            <script>
+<script>
                 function confirmDelete() {
                     confirm("Are u sure u want to selected delete medicine?")
                 }
-            </script>
+</script>

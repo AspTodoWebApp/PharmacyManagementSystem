@@ -11,7 +11,7 @@
 
     <div class="panel panel-default" style="box-shadow:2px 2px 5px grey">
         <div class="panel-heading">
-            
+
             <i class="fa fa-medkit"></i>
             Medicines
         </div>
@@ -21,16 +21,16 @@
     @if (Context.User.IsInRole("Admin"))
     {
 
-    <button type="button" class="btn btn-success addStock" data-toggle="modal" data-target="#addModalLong" style="margin-bottom:20px;color:white;box-shadow:2px 2px 5px grey">
-        <span class="glyphicon glyphicon-plus-sign"></span>Add Medicine
-    </button>
-    }
-    @*else
-    {
-        <button type="button" class="btn btn-success addStock disabled" data-toggle="modal" data-target="#addModalLong" style="margin-bottom:20px;color:white;box-shadow:2px 2px 5px grey">
+        <button type="button" class="btn btn-success addStock" data-toggle="modal" data-target="#addModalLong" style="margin-bottom:20px;color:white;box-shadow:2px 2px 5px grey">
             <span class="glyphicon glyphicon-plus-sign"></span>Add Medicine
         </button>
-    }*@
+    }
+    @*else
+        {
+            <button type="button" class="btn btn-success addStock disabled" data-toggle="modal" data-target="#addModalLong" style="margin-bottom:20px;color:white;box-shadow:2px 2px 5px grey">
+                <span class="glyphicon glyphicon-plus-sign"></span>Add Medicine
+            </button>
+        }*@
 
     <div class="card">
         <div class="card-body">
@@ -59,10 +59,11 @@
                                 <th style="text-align:center">
                                     @Html.DisplayNameFor(model => model.ExpiryDate)
                                 </th>
-@if (Context.User.IsInRole("Admin")) {
-    
-                                <th>Options</th>
-    }
+                                @if (Context.User.IsInRole("Admin"))
+                                {
+
+                                    <th>Options</th>
+                                }
                             </tr>
                         </thead>
 
@@ -86,13 +87,13 @@
                                         <div class="row">
                                             @if (Context.User.IsInRole("Admin"))
                                             {
-                                            <div class="col-lg-12">
-                                                @Html.DisplayFor(modelItem => item.Quantity)
+                                                <div class="col-lg-12">
+                                                    @Html.DisplayFor(modelItem => item.Quantity)
 
-                                                <button type="button" class="btn btn-success  loadStock" data-toggle="modal" data-target="#loadQuantityModal" data-id="@item.SerialNumber">Load</button>
-                                            </div>
-                                            if (@item.Quantity <= 50)
-                                            { <div class="col-lg-12" style="margin-top:5px">
+                                                    <button type="button" class="btn btn-success  loadStock" data-toggle="modal" data-target="#loadQuantityModal" data-id="@item.SerialNumber">Load</button>
+                                                </div>
+                                                if (@item.Quantity <= 50)
+                                                { <div class="col-lg-12" style="margin-top:5px">
                                                 <label class="badge badge-danger">Stock out</label>
                                             </div>
                                                 }
@@ -100,10 +101,11 @@
                                             else
                                             {
                                                 if (@item.Quantity <= 50)
-                                                {<div class="col-lg-6">@Html.DisplayFor(modelItem => item.Quantity)
-                                        
+                                                {<div class="col-lg-6">
+                                                @Html.DisplayFor(modelItem => item.Quantity)
+
                                             </div>
-                                           <div class="col-lg-6" style="margin-top:5px">
+                                            <div class="col-lg-6" style="margin-top:5px">
                                                 <label class="badge badge-danger">Stock out</label>
                                             </div>
                                                 }
@@ -121,52 +123,53 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ExpiryDate)
                                     </td>
-                                   @if (Context.User.IsInRole("Admin"))
-                                   { <td>
+                                    @if (Context.User.IsInRole("Admin"))
+                                    {
+                                    <td>
 
                                         <div class="container">
-    <div class="row">
-        
+                                            <div class="row">
 
-            <div class="col-lg-12">
 
-                <button type="button" class="btn btn-success  editStock" data-toggle="modal" data-target="#editModalLong" data-id="@item.SerialNumber">
-                    <span class="glyphicon glyphicon-edit"></span> Edit
-                </button>
-            </div>
+                                                <div class="col-lg-12">
+
+                                                    <button type="button" class="btn btn-success  editStock" data-toggle="modal" data-target="#editModalLong" data-id="@item.SerialNumber">
+                                                        <span class="glyphicon glyphicon-edit"></span> Edit
+                                                    </button>
+                                                </div>
                                                 <div class="col-lg-12" style="margin-top:5px">
                                                     <div role="button" class="btn btn-danger" style="color:white">
                                                         <span class="glyphicon glyphicon-trash"></span>
 
                                                         @Html.ActionLink("Delete", "Delete", new { id = item.SerialNumber },
 new { @class = "link-button", onclick = "return confirm('Are you sure you wish to delete this Medicine?');", })
-</div>
-@*   <button type="button" class="btn btn-danger btn-xs" onclick="location.href='@Htm("Delete", "Delete", new { id = item.SerialNumber },
+                                                    </div>
+                                                    @*   <button type="button" class="btn btn-danger btn-xs" onclick="location.href='@Htm("Delete", "Delete", new { id = item.SerialNumber },
                                                         new { onclick = "return confirm('Are you sure you wish to delete this Medicine?');" })'">Rr</button>*@
                                                 </div>
 
-                                          
-        
-       @* else
-        {
-            <div class="col-lg-12">
 
-                <button type="button" class="btn btn-success  editStock disabled" data-toggle="modal" data-target="#editModalLong" data-id="@item.SerialNumber">
-                    <span class="glyphicon glyphicon-edit"></span> Edit
-                </button>
-            </div>
-                     <div class="col-lg-12" style="margin-top:5px">
-                            <div role="button" class="btn btn-danger disabled" style="color:white">
-                        <span class="glyphicon glyphicon-trash"></span>
- @Html.ActionLink("Delete", "Delete", new { id = item.SerialNumber },new { @class = "link-button", onclick = "return confirm('Are you sure you wish to delete this Medicine?');", })
-         </div>
-         </div>
 
-        }*@
-                                        </div>
+                                                @* else
+                                                           {
+                                                               <div class="col-lg-12">
+
+                                                                   <button type="button" class="btn btn-success  editStock disabled" data-toggle="modal" data-target="#editModalLong" data-id="@item.SerialNumber">
+                                                                       <span class="glyphicon glyphicon-edit"></span> Edit
+                                                                   </button>
+                                                               </div>
+                                                                        <div class="col-lg-12" style="margin-top:5px">
+                                                                               <div role="button" class="btn btn-danger disabled" style="color:white">
+                                                                           <span class="glyphicon glyphicon-trash"></span>
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.SerialNumber },new { @class = "link-button", onclick = "return confirm('Are you sure you wish to delete this Medicine?');", })
+                                                            </div>
+                                                            </div>
+
+                                                           }*@
                                             </div>
+                                        </div>
                                     </td>
-                                   }
+                                    }
                                 </tr>
                             }
                         </tbody>
@@ -320,8 +323,8 @@ new { @class = "link-button", onclick = "return confirm('Are you sure you wish t
                 });
             });
 
-         
-    
+
+
 
 
             var loadStaffPostBackURL = '/Stock/LoadQuantity';

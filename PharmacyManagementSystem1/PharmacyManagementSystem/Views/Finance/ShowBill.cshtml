@@ -11,13 +11,13 @@
     <p>Customer Receipt</p>
     <table class="table table-bordered" style="margin-bottom:20px">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Unity Price</th>
-            <th>QTY</th>
-            <th>Total</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Unity Price</th>
+                <th>QTY</th>
+                <th>Total</th>
+            </tr>
         </thead>
 
         <tbody>
@@ -31,14 +31,14 @@
                     <td>@Html.DisplayFor(modelItem => item.Discount)</td>
                     <td>@Html.DisplayFor(modelItem => item.SubTotal)</td>
                 </tr>}
-            <tbody>
-</table>
+        <tbody>
+    </table>
     <dl class="dl-horizontal">
         <dt>SubTotal</dt>
         <dd>@Model.SubTotal</dd>
         <dt>Discount</dt>
         <dd>@Model.Discount</dd>
-     
+
         <dt>Grand Total</dt>
         <dd>@Model.GrandTotal</dd>
     </dl>

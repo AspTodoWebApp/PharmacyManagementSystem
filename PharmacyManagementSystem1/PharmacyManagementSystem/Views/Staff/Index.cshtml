@@ -50,7 +50,7 @@
                                 <th style="text-align:center">
                                     @Html.DisplayNameFor(model => model.Address)
                                 </th>
-                                
+
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -71,7 +71,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Phone)
                                     </td>
-                                   <td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.Address)
                                     </td>
                                     <td>
@@ -89,7 +89,7 @@
                                                         @Html.ActionLink("Delete", "Delete", new { id = item.Id },
 new { @class = "link-button", onclick = "return confirm('Are you sure you want to remove this staff?');", })
 
-  </div>
+                                                    </div>
 
                                                 </div>
 
@@ -156,7 +156,7 @@ new { @class = "link-button", onclick = "return confirm('Are you sure you want t
                 <div class="row">
                 </div>
             </div>
-         
+
         </div>
     </div>
 </div>
@@ -217,5 +217,5 @@ new { @class = "link-button", onclick = "return confirm('Are you sure you want t
                     });
                 });
             });
-</script>
+    </script>
 }

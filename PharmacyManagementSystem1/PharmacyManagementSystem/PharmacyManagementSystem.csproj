@@ -1097,7 +1097,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Stock\Create.cshtml" />
-    <Content Include="Views\Stock\Index.cshtml" />
     <Content Include="Views\Stock\StockAlert.cshtml" />
     <Content Include="Views\Stock\ExpiryAlert.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />

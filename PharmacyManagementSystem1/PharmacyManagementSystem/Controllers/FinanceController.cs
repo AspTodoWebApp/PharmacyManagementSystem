@@ -12,34 +12,20 @@ namespace PharmacyManagementSystem.Controllers
         PharmacyDBEntities4 _db;
         int previousOrderQuantity;
         string previousOrderCategory;
-       
+
         public FinanceController()
         {
             _db = new PharmacyDBEntities4();
-           
+
         }
         // GET: Finance
         public ActionResult Index()
         {
-         
             return View(_db.AllSales.ToList());
         }
         //autocomplete
         public JsonResult GetSearchValue(string search)
         {
-            //List<Stock> uniqueList = new List<Stock>();
-            //foreach(Stock obj in _db.Stocks)
-            //{
-            //    foreach(Stock ad in uniqueList)
-            //    {
-            //        if (ad.Name != obj.Name)
-            //        {
-            //            uniqueList.Add(obj);
-            //        }
-            //    }
-            //}
-
-
             List<Stock> allsearch = _db.Stocks.Where(x => x.Name.StartsWith(search)).ToList();
             return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
@@ -63,7 +49,7 @@ namespace PharmacyManagementSystem.Controllers
             CreatePOS createBill = new CreatePOS();
             try
             {
-                if (_db.PlaceOrders.Max(sale => sale.OrderId) == 1 && _db.AllSales.Count()==0)
+                if (_db.PlaceOrders.Max(sale => sale.OrderId) == 1 && _db.AllSales.Count() == 0)
                 {
                     createBill.orderList = _db.PlaceOrders.ToList();
                 }
@@ -78,7 +64,7 @@ namespace PharmacyManagementSystem.Controllers
             }
             return View(createBill);
         }
-        
+
         // POST: Finance/Create
         [HttpPost]
         public ActionResult Create(PlaceOrder collection)
@@ -93,38 +79,34 @@ namespace PharmacyManagementSystem.Controllers
                     OrderId = lastOrder + 1;
                 }
 
-                  Stock obj = _db.Stocks.Where(med => med.Name == collection.Name && med.Category == collection.Category).First();
-                    int subTotal = obj.SellingPrice * collection.Quantity;
+                Stock obj = _db.Stocks.Where(med => med.Name == collection.Name && med.Category == collection.Category).First();
+                int subTotal = obj.SellingPrice * collection.Quantity;
                 int unitPrice = obj.SellingPrice;
-                    Random rand = new Random();
-                    PlaceOrder order = new PlaceOrder();
-                    order.SerialNumber = rand.Next();
+                Random rand = new Random();
+                PlaceOrder order = new PlaceOrder();
+                order.SerialNumber = rand.Next();
 
-              
-                order.OrderId = OrderId;//CustomerBillId;
-                    order.Name = collection.Name;
-                    order.Category = collection.Category;
-                    order.Quantity = collection.Quantity;
+
+                order.OrderId = OrderId;
+                order.Name = collection.Name;
+                order.Category = collection.Category;
+                order.Quantity = collection.Quantity;
                 order.UnitPrice = unitPrice;
                 order.Discount = collection.Discount;
-                    order.SubTotal = subTotal;
-                    order.OrderDate = DateTime.Now;//collection.OrderDate;
-                    _db.PlaceOrders.Add(order);
+                order.SubTotal = subTotal;
+                order.OrderDate = DateTime.Now;
+                _db.PlaceOrders.Add(order);
 
-                    //update stock
-                    Stock updatedStock = _db.Stocks.Where(med => med.Name == collection.Name && med.Category == collection.Category).First();
-                    updatedStock.Quantity -= collection.Quantity;
-                    //update stock
+                //update stock
+                Stock updatedStock = _db.Stocks.Where(med => med.Name == collection.Name && med.Category == collection.Category).First();
+                updatedStock.Quantity -= collection.Quantity;
+                //update stock
 
-                    _db.SaveChanges();
-             
-                    TempData["msg"] = "<script>alert('item added');</script>";
+                _db.SaveChanges();
 
-                    return RedirectToAction("Create");
+                TempData["msg"] = "<script>alert('item added');</script>";
 
-                    // return RedirectToAction("Index");
-                
-               
+                return RedirectToAction("Create");
             }
             catch
             {
@@ -135,15 +117,15 @@ namespace PharmacyManagementSystem.Controllers
         public ActionResult ShowBill(int id)
         {
             CreateBill billDetail = new CreateBill();
-            billDetail.SubTotal = float.Parse(_db.PlaceOrders.Where(obj=>obj.OrderId== id).Sum(order=>order.SubTotal).ToString());
-            billDetail.Discount= float.Parse(_db.PlaceOrders.Where(obj => obj.OrderId == id).Sum(order => order.Discount).ToString());
+            billDetail.SubTotal = float.Parse(_db.PlaceOrders.Where(obj => obj.OrderId == id).Sum(order => order.SubTotal).ToString());
+            billDetail.Discount = float.Parse(_db.PlaceOrders.Where(obj => obj.OrderId == id).Sum(order => order.Discount).ToString());
             billDetail.GrandTotal = float.Parse(Math.Round(billDetail.SubTotal - billDetail.Discount, 3).ToString()); //billDetail.SubTotal - billDetail.Discount;
-           
+
             billDetail.billList = _db.PlaceOrders.Where(obj => obj.OrderId == id).ToList();
 
 
             AllSale storeBill = new AllSale();
-          
+
             storeBill.OrderId = id;
             storeBill.Date = DateTime.Now;
             storeBill.SubTotal = billDetail.SubTotal;
@@ -154,70 +136,44 @@ namespace PharmacyManagementSystem.Controllers
 
             return View(billDetail);
         }
-        // GET: Finance/Edit/5
-      // public ActionResult Edit(int id)
-    /*  public ActionResult Edit(int id)
-        {
-            PlaceOrder Customerorder = new PlaceOrder();
-            Customerorder = _db.PlaceOrders.Find(id);
-            CreatePOS pos = new CreatePOS();
-            pos.Name = Customerorder.Name;
-            pos.Category = Customerorder.Category;
-            pos.Quantity = Customerorder.Quantity;
-            pos.Discount = float.Parse(Customerorder.Discount.ToString());
-
-            return View(Customerorder);
-        }*/
-      
-            //edit order place
+        //edit order place
         public ActionResult editsale(int id)
         {
-           
+
             PlaceOrder Customerorder = new PlaceOrder();
             Customerorder = _db.PlaceOrders.Find(id);
             CreatePOS pos = new CreatePOS();
             pos.Name = Customerorder.Name;
-         //   pos.Category = Customerorder.Category;
             ViewBag.Category = _db.Stocks.Where(x => x.Name == Customerorder.Name).Select(r => new SelectListItem { Value = r.Category, Text = r.Category }).ToList();//_db.MedicineCategories.Select(r => new SelectListItem { Value = r.Category, Text = r.Category }).ToList();
             pos.Quantity = Customerorder.Quantity;
             pos.Discount = float.Parse(Customerorder.Discount.ToString());
-
-            //for future functionality
             previousOrderQuantity = Customerorder.Quantity;
             previousOrderCategory = Customerorder.Category;
-            //for future functionality
-
             return View(Customerorder);
         }
 
         [HttpPost]
-        public ActionResult editsale(int id,PlaceOrder updatedOrder)
+        public ActionResult editsale(int id, PlaceOrder updatedOrder)
         {
-           PlaceOrder saveOrder = _db.PlaceOrders.Find(id);
-            Stock updatedStock,undoStock;
+            PlaceOrder saveOrder = _db.PlaceOrders.Find(id);
+            Stock updatedStock, undoStock;
             int itemPrice;
             if (saveOrder.Category == updatedOrder.Category)
             {
                 updatedStock = _db.Stocks.Where(med => med.Name == saveOrder.Name && med.Category == saveOrder.Category).First();
-                updatedStock.Quantity +=saveOrder.Quantity - updatedOrder.Quantity;
-                //   updatedStock.Quantity -= ;
+                updatedStock.Quantity += saveOrder.Quantity - updatedOrder.Quantity;
                 itemPrice = updatedStock.SellingPrice;
-                    TempData["msg"] = "<script>alert('same');</script>";
+                TempData["msg"] = "<script>alert('same');</script>";
             }
             else
             {
                 updatedStock = _db.Stocks.Where(med => med.Name == updatedOrder.Name && med.Category == updatedOrder.Category).First();
                 updatedStock.Quantity -= updatedOrder.Quantity;
                 itemPrice = updatedStock.SellingPrice;
-
                 undoStock = _db.Stocks.Where(med => med.Name == saveOrder.Name && med.Category == saveOrder.Category).First();
                 undoStock.Quantity += saveOrder.Quantity;
-
-
-
                 TempData["msg"] = "<script>alert('different');</script>";
             }
-
             saveOrder.Name = updatedOrder.Name;
             saveOrder.Category = updatedOrder.Category;
             saveOrder.Quantity = updatedOrder.Quantity;
@@ -225,34 +181,28 @@ namespace PharmacyManagementSystem.Controllers
             saveOrder.SubTotal = itemPrice * updatedOrder.Quantity;
             saveOrder.OrderDate = DateTime.Now;
             _db.SaveChanges();
-
-
-            //check either it is being edited after bill print or not and redirect to specific direction
+            //check either it is being edited after bill print or generateing bill first time and redirect to specific direction
             if (_db.AllSales.Where(sale => sale.OrderId == saveOrder.OrderId).Count() != 0)
             {
-                return RedirectToAction("EditBill"+"/"+saveOrder.OrderId.ToString());
+                return RedirectToAction("EditBill" + "/" + saveOrder.OrderId.ToString());
             }
             else
             {
                 return RedirectToAction("Create");
             }
-         //   return View(Customerorder);
+
         }
 
         public ActionResult Delete(int id)
         {
             PlaceOrder selected = _db.PlaceOrders.Find(id);
-            
-
             //update stock
             Stock updateStock = _db.Stocks.Where(med => med.Name == selected.Name && med.Category == selected.Category).First();
             updateStock.Quantity += selected.Quantity;
             //update stock
-
             _db.PlaceOrders.Remove(selected);
             _db.SaveChanges();
             return RedirectToAction("Create");
-            //   return View();
         }
 
         //delete complete order
@@ -260,7 +210,7 @@ namespace PharmacyManagementSystem.Controllers
         {
             List<PlaceOrder> sales = _db.PlaceOrders.Where(sale => sale.OrderId == id).ToList();
             _db.PlaceOrders.RemoveRange(sales);
-             AllSale deleteOrder = _db.AllSales.Find(id);
+            AllSale deleteOrder = _db.AllSales.Find(id);
             _db.AllSales.Remove(deleteOrder);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -273,14 +223,13 @@ namespace PharmacyManagementSystem.Controllers
 
             ViewBag.OrderId = id;
             List<PlaceOrder> selectSales = _db.PlaceOrders.Where(order => order.OrderId == id).ToList();
-          //  List<PlaceOrder> filtered = selectSales.Where(order => order.OrderId == id).ToList();
             return View(selectSales);
         }
 
         [HttpPost]
-        public ActionResult EditBill(int id,AllSale allsale)
+        public ActionResult EditBill(int id, AllSale allsale)
         {
-            float SubTotal= float.Parse(_db.PlaceOrders.Where(obj => obj.OrderId == id).Sum(order => order.SubTotal).ToString());
+            float SubTotal = float.Parse(_db.PlaceOrders.Where(obj => obj.OrderId == id).Sum(order => order.SubTotal).ToString());
             float Discount = float.Parse(_db.PlaceOrders.Where(obj => obj.OrderId == id).Sum(order => order.Discount).ToString());
             float GrandTotal = SubTotal - Discount;
             AllSale updateBill = _db.AllSales.Find(id);
@@ -293,21 +242,27 @@ namespace PharmacyManagementSystem.Controllers
         }
 
 
-        public JsonResult CheckOrderExists(string Name,string Category)
+        public JsonResult CheckOrderExists(string Name, string Category)
         {
             bool UserExists = false;
             try
             {
-                var nameexits = _db.PlaceOrders.Where(x =>x.OrderId > _db.AllSales.Max(sale=>sale.OrderId) && x.Name == Name && x.Category==Category).ToList();
+                var currentdate = DateTime.Today.ToString("yyyy-MM-dd");
+                var validQuantity = _db.Stocks.Where(x => x.Name == Name && x.Category == Category).First();
+                var nameexits = _db.PlaceOrders.Where(x => x.OrderId > _db.AllSales.Max(sale => sale.OrderId) && x.Name == Name && x.Category == Category).ToList();
                 if (nameexits.Count() > 0)
                 {
-                    UserExists = true;
+                    return Json("Order has already been added", JsonRequestBehavior.AllowGet);
+
+                }
+                else if (DateTime.Parse(validQuantity.ExpiryDate.ToString()) <= DateTime.Parse(currentdate))
+                {
+                    return Json("Medicine is expire", JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    UserExists = false;
+                    return Json(!UserExists, JsonRequestBehavior.AllowGet);
                 }
-                return Json(!UserExists, JsonRequestBehavior.AllowGet);
             }
 
             catch (Exception)
@@ -316,14 +271,13 @@ namespace PharmacyManagementSystem.Controllers
             }
         }
 
-        
-             public JsonResult CheckQuantityExists(string Name, string Category,int Quantity)
+
+        public JsonResult CheckQuantityExists(string Name, string Category, int Quantity)
         {
             bool UserExists = false;
             try
             {
                 var validQuantity = _db.Stocks.Where(x => x.Name == Name && x.Category == Category).First();
-
                 if (validQuantity.Quantity < Quantity)
                 {
                     UserExists = true;
@@ -341,22 +295,17 @@ namespace PharmacyManagementSystem.Controllers
             }
         }
 
-
-
         // GET: Finance/ViewExpenses
         public ActionResult ViewExpenses()
         {
             return View(_db.Expenses.ToList());
         }
 
-  
-
-
         // GET: Finance/AddExpenses
         public ActionResult AddExpenses()
         {
             Expens expenses = new Expens();
-          //  expenses.CategoryList = null;
+            //  expenses.CategoryList = null;
             expenses.CategoryList = new SelectList(_db.ExpenseCategories.ToList(), "Category", "Category");
 
             return View(expenses);
@@ -373,12 +322,9 @@ namespace PharmacyManagementSystem.Controllers
                 NewExpense.SerialNumber = rand.Next(10000);
                 NewExpense.Amount = collection.Amount;
                 NewExpense.Category = collection.Category;
-                NewExpense.Date = collection.Date;//DateTime.Now;
+                NewExpense.Date = collection.Date;
                 _db.Expenses.Add(NewExpense);
                 _db.SaveChanges();
-                // TODO: Add insert logic here
-
-                // return RedirectToAction("PrintBill");
                 return RedirectToAction("ViewExpenses");
             }
             catch
@@ -391,7 +337,6 @@ namespace PharmacyManagementSystem.Controllers
         // GET: Finance/AddExpenseCategory
         public ActionResult AddExpenseCategory()
         {
-            
             return View();
         }
 
@@ -413,50 +358,11 @@ namespace PharmacyManagementSystem.Controllers
                 return View();
             }
         }
-        // POST: Finance/Edit/5
-      /*  [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        */
-        // GET: Finance/Delete/5
-      /*  public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Finance/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-    */
 
         public ActionResult SaleToday()
         {
             var currentdate = DateTime.Today.ToString("yyyy-MM-dd");
-
             return View(_db.AllSales.Where(sale => sale.Date.ToString() == currentdate).ToList());
         }
         public ActionResult ExpenseToday()
@@ -467,11 +373,10 @@ namespace PharmacyManagementSystem.Controllers
         public ActionResult EditExpense(int id)
         {
             Expens editExpense = _db.Expenses.Find(id);
-          //  editExpense.Date = editExpense.Date.Date;//DateTime.Parse(editExpense.Date.ToString("yyyy/MM/dd"));//editExpense.Date.ToString("yyyy/MM/dd");//ToString("yyyy-MM-dd");
             return View(editExpense);
         }
         [HttpPost]
-        public ActionResult EditExpense(int id,Expens updatedExpense)
+        public ActionResult EditExpense(int id, Expens updatedExpense)
         {
             Expens expense = _db.Expenses.Find(id);
             expense.Amount = updatedExpense.Amount;
